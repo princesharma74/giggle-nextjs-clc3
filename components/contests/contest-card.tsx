@@ -1,24 +1,29 @@
+import Link from "next/link";
 import { Separator } from "../ui/separator";
 import TimeAgo from "../ui/time-ago";
 import { Contest } from "@/types";
+import { Badge } from "../ui/badge";
 
 interface ContestCardProps{
-    data: Contest
+    contest: Contest
 }
 
 const ContestCard : React.FC<ContestCardProps> = ({
-    data
+    contest
 }) => {
     return ( 
         <div className=" flex items-center space-x-4 rounded-md border p-4">
             <div className="flex-1 space-y-1">
-            <p className="font-medium leading-none">{data.title}</p>
-            <div className="flex justify-between">
-                <div className="text-sm">{data.platform}</div>
-                <div className="text-sm text-muted-foreground text-right">
-                    <TimeAgo data={data.time}/>
+                <Link href={contest.url}><p className="font-medium leading-none">{contest.title}</p></Link>
+                <Separator/>
+                <div className="flex justify-between">
+                    <div className="text-sm">
+                        <TimeAgo data={contest.start_time}/>
+                    </div>
+                    <div className="text-sm text-muted-foreground text-right">
+                        <Badge variant={"outline"}>{contest.platform}</Badge>
+                    </div>
                 </div>
-            </div>
             </div>
       </div>
      );

@@ -42,14 +42,15 @@ export interface User{
 
 export interface Topic{
     id: number,
-    name: string
+    name: string,
+    room_count: number
 }
 
 export interface Room{
     id: number,
     title: string, 
     description: string,
-    participants: User[], 
+    participants: User[],
     topics: Topic[],
     host: User
     createAt: Date
@@ -57,7 +58,7 @@ export interface Room{
 
 export interface Contest{
     title: string,
-    time: Date, 
-    link: string, 
+    start_time: Date, 
+    url: string, 
     platform: 'Codeforces' | 'Codechef' | 'Leetcode'
 }

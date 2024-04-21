@@ -1,7 +1,6 @@
 import { Room } from "@/types";
 import { getRooms } from "@/actions/get-rooms";
 import React from "react";
-import { useEffect, useState } from "react";
 import RoomCard from "./room-card";
 
 import {
@@ -16,19 +15,14 @@ import {
 import { Input } from "../ui/input";
 import NoResults from "../ui/no-result";
 
+interface RoomListProps{
+    rooms: Room[]
+}
 
-const RoomList = () => {
-    const rooms : Room[] = getRooms
 
-    const [isMounted, setIsMounted] = useState(false)
-
-    useEffect(() => {
-        setIsMounted(true)
-    }, [])
-
-    if(!isMounted){
-        return null
-    }
+const RoomList : React.FC<RoomListProps> = ({
+    rooms
+}) => {
     return ( 
         <div className="flex flex-col gap-4">
             <Input className="hidden md:block" placeholder="Search for rooms..."/>

@@ -3,10 +3,10 @@ import Container from "../ui/container";
 import MainNav from "./main-nav";
 import { NavItem } from "@/types";
 import NavActions from "./nav-actions";
-import { getNavItems } from "@/actions/get-navItems";
+import { siteConfig } from "@/config/site";
 
 const Navbar = () => {
-    const navItems : NavItem[]  = getNavItems; 
+    const navItems : NavItem[]  = siteConfig["nav-options"]
     return ( 
         <div className="border-b">
             <Container>
