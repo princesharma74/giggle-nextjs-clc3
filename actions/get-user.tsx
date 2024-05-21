@@ -7,7 +7,7 @@ const headers = {
     Authorization: `Bearer ${process.env.BACKEND_API_TOKEN}`
 }
 
-const getUser = async (userId: string) => {
+const getUser = async (userId: string) : Promise<User | null> => {
     try {
         const { data } = await axios.get(`${URL}/${userId}`, { headers })
         const user : User = {
@@ -17,25 +17,25 @@ const getUser = async (userId: string) => {
             profile: `${process.env.BACKEND_API_URL}${data.avatar}`,
             bio: data.bio,
             leetcode: {
-                username: data.leetcode_id, 
-                rating: data.leetcode_rating,
-                global_ranking: data.leetcode_global_ranking,
-                number_of_questions: data.number_of_leetcode_questions,
-                number_of_contests: data.number_of_leetcode_contests
+                username: data.leetcode.user_id, 
+                rating: data.leetcode.rating,
+                global_ranking: data.leetcode.global_ranking,
+                number_of_questions: data.leetcode.number_of_questions,
+                number_of_contests: data.leetcode.number_of_contests
             }, 
             codeforces: {
-                username: data.codeforces_id, 
-                rating: data.codeforces_rating,
-                global_ranking: data.codeforces_global_ranking,
-                number_of_questions: data.number_of_codeforces_questions,
-                number_of_contests: data.number_of_codeforces_contests
+                username: data.codeforces.user_id,
+                rating: data.codeforces.rating,
+                global_ranking: data.codeforces.global_ranking,
+                number_of_questions: data.codeforces.number_of_questions,
+                number_of_contests: data.codeforces.number_of_contests
             },
             codechef: {
-                username: data.codechef_id, 
-                rating: data.codechef_rating,
-                global_ranking: data.codechef_global_ranking,
-                number_of_questions: data.number_of_codechef_questions,
-                number_of_contests: data.number_of_codechef_contests
+                username: data.codechef.user_id,
+                rating: data.codechef.rating,
+                global_ranking: data.codechef.global_ranking,
+                number_of_questions: data.codechef.number_of_questions,
+                number_of_contests: data.codechef.number_of_contests
             }
         }
         return user

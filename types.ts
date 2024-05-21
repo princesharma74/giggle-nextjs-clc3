@@ -1,3 +1,5 @@
+import { Duration } from "date-fns"
+
 export interface NavItem{
     href: string, 
     label: string, 
@@ -61,4 +63,26 @@ export interface Contest{
     start_time: Date, 
     url: string, 
     platform: 'Codeforces' | 'Codechef' | 'Leetcode'
+}
+
+export interface RatingChange{
+    id: number, 
+    contest: Contest,
+    rating_change: number, 
+    final_rating: number, 
+    time_taken: Duration | null, 
+    rank: number,
+    number_of_problem_solved: number
+}
+
+export interface PaginationType{
+    count: number,
+    num_pages: number,
+    has_next: boolean,
+    has_previous: boolean,
+    page_range: number[]
+}
+
+export interface RatingChangePagination extends PaginationType{
+    results: RatingChange[]
 }

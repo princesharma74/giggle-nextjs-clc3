@@ -1,6 +1,6 @@
+"use client"
 import { Room } from "@/types";
-import { getRooms } from "@/actions/get-rooms";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import RoomCard from "./room-card";
 
 import {
@@ -12,8 +12,8 @@ import {
     PaginationNext,
     PaginationPrevious,
   } from "@/components/ui/pagination"
-import { Input } from "../ui/input";
-import NoResults from "../ui/no-result";
+import { Input } from "@/components/ui/input";
+import NoResults from "@/components/ui/no-result";
 
 interface RoomListProps{
     rooms: Room[]
@@ -23,6 +23,14 @@ interface RoomListProps{
 const RoomList : React.FC<RoomListProps> = ({
     rooms
 }) => {
+    const [isMounted, setIsMounted] = useState(false);
+    useEffect(()=>{
+        setIsMounted(true);
+    }, []);
+    if(!isMounted){
+        return null;
+    }
+
     return ( 
         <div className="flex flex-col gap-4">
             <Input className="hidden md:block" placeholder="Search for rooms..."/>

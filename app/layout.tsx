@@ -1,12 +1,9 @@
 import type { Metadata } from "next";
 import { Urbanist } from "next/font/google";
 import "./globals.css"
-import Navbar from "@/components/navbar/navbar";
-import Footer from "@/components/footer/footer";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ModalProvider } from "@/providers/modal-provider";
 import { Toaster } from "@/components/ui/toaster";
-import { ClerkProvider } from "@clerk/nextjs"
 
 const font = Urbanist({ subsets: ["latin"] });
 
@@ -21,7 +18,6 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
       <html lang="en">
         <body className={font.className}>
           {/* Add Providers below */}
@@ -33,13 +29,9 @@ export default function RootLayout({
               enableSystem
               disableTransitionOnChange
             >
-
-            <Navbar/>
             {children}
-            <Footer/>
           </ThemeProvider>
         </body>
       </html>
-    </ClerkProvider>
   );
 }

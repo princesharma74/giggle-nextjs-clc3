@@ -1,20 +1,29 @@
-"use client"
 import { ModeToggle } from "../mode-toggle"
-import { UserButton, useUser } from "@clerk/nextjs"
-import Link from "next/link"
+import { auth } from "@/auth"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { LoginBox } from "../auth/log-in"
+import { Button } from "../ui/button"
+import LoggedInComponent from "@/components/auth/logged-in"
 
 
-const NavActions = () => {
-    const { isLoaded, isSignedIn, user } = useUser()
-
+const NavActions = async () => {
+    // check if user is signed in
+    const session = await auth()
+    const isLoggedIn = !!session?.user
     return ( 
         <div className="ml-auto flex items-center gap-x-4">
-            <UserButton/>
             {
-                !isSignedIn && 
-                <Link href={"/sign-in"} className="font-semibold">
+                isLoggedIn ? 
+                <LoggedInComponent session={session}/>
+                : 
+                <Dialog>
+                    <DialogTrigger>
                     Login
-                </Link>
+                    </DialogTrigger>
+                    <DialogContent>
+                        <LoginBox/>
+                    </DialogContent>
+                </Dialog>
             }
             <ModeToggle/>
         </div>

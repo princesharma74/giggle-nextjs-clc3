@@ -5,7 +5,7 @@ import { NavItem } from "@/types";
 import NavActions from "./nav-actions";
 import { siteConfig } from "@/config/site";
 
-const Navbar = () => {
+const Navbar = async () => {
     const navItems : NavItem[]  = siteConfig["nav-options"]
     return ( 
         <div className="border-b">

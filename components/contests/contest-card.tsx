@@ -15,7 +15,6 @@ const ContestCard : React.FC<ContestCardProps> = ({
         <div className=" flex items-center space-x-4 rounded-md border p-4">
             <div className="flex-1 space-y-1">
                 <Link href={contest.url}><p className="font-medium leading-none">{contest.title}</p></Link>
-                <Separator/>
                 <div className="flex justify-between">
                     <div className="text-sm">
                         <TimeAgo data={contest.start_time}/>

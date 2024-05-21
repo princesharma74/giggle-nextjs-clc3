@@ -1,11 +1,13 @@
+"use client"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Room } from "@/types";
 import TimeAgo from "@/components/ui/time-ago";
-import { Separator } from "../ui/separator";
+import { Separator } from "@/components/ui/separator";
 import { Users } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 interface RoomCardProps{
     data: Room
@@ -14,9 +16,20 @@ interface RoomCardProps{
 const RoomCard :React.FC<RoomCardProps> = ({
     data
 }) => {
+    const router = useRouter();
+    const [isMounted, setIsMounted] = useState(false);
+    useEffect(()=>{
+        setIsMounted(true);
+    }, []);
+    if(!isMounted){
+        return null;
+    }
+
     return ( 
         <div>
-            <Card>
+            <Card onClick={() => {
+                router.push(`/room/${data.id}`)
+            }}>
                 <CardHeader className="">
                     <div className="flex justify-between">
                         <Link href="#">
