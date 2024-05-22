@@ -25,11 +25,13 @@ model User{
   gender         Gender
   is_admin       Boolean @default(false)
   avatar         String  
+  rooms Room[] @relation("UsersToRoom")
   submissions Submission[] @relation("UserToSubmission")
   codechef Codechef? @relation("UserToCodechef")
   codeforces Codeforces? @relation("UserToCodeforces")
   leetcode Leetcode? @relation("UserToLeetcode")
   room Room[] @relation("UserToRoom")
+  messages Message[] @relation("UserToMessages")
   rating_change RatingChange[] @relation("UserToRatingChange")
   createdAt     DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -84,12 +86,28 @@ model Room {
   title String
   host_id String
   user User @relation("UserToRoom", fields: [host_id], references: [username])
+  participants User[] @relation("UsersToRoom")
   topics Topic[]
+  messages Message[] @relation("RoomToMessages")
   description String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@index([host_id])
+}
+
+model Message{
+  id Int @id @default(autoincrement())
+  room_id String
+  room Room @relation("RoomToMessages", fields: [room_id], references: [id])
+  sender_id String
+  sender User @relation("UserToMessages", fields: [sender_id], references: [username])
+  content String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([room_id])
+  @@index([sender_id])
 }
 
 model Problem{

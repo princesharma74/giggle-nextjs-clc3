@@ -5,9 +5,18 @@ import { getUpcomingContests } from "@/actions/get-upcoming-contests";
 import getTopics from "@/actions/get-topics";
 import TopicsView from "@/components/topics/topics-view";
 import ContestsList from "@/components/contests/contests-list";
+import prismadb from "@/lib/prismadb";
+import { Room } from "@prisma/client";
 
 const HomePage = async () => {
-    const rooms = await getRooms()
+    const rooms = await prismadb.room.findMany(
+        {
+            include: {
+                topics: true,
+                participants: true
+            }
+        }
+    )
     const contests = await getUpcomingContests()
     const topics = await getTopics()
     return ( 

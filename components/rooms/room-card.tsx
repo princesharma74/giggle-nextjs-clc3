@@ -36,7 +36,7 @@ const RoomCard :React.FC<RoomCardProps> = ({
                             <CardTitle>{data.title}</CardTitle>
                         </Link>
                         <div className="text-xs">
-                            <TimeAgo data={data.createAt}/>
+                            <TimeAgo data={data.createdAt}/>
                         </div>
                     </div>
                     <CardDescription>{data.description}</CardDescription>
@@ -50,7 +50,7 @@ const RoomCard :React.FC<RoomCardProps> = ({
                             </div>
                         <div className="gap-x-1 flex flex-wrap">
                             {data.topics.map((topic)=>(
-                                <div key={topic.id}><Badge>{topic.name}</Badge></div>
+                                <div key={topic.name}><Badge>{topic.name}</Badge></div>
                             ))}
                         </div>
                     </div>
