@@ -12,3 +12,11 @@ export type Room = Prisma.RoomGetPayload<{
         participants: true
     }
 }>
+
+export type User = Prisma.UserGetPayload<{
+    include: {
+        codeforces: true,
+        leetcode: true,
+        codechef: true
+    }
+}>

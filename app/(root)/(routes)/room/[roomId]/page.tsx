@@ -18,7 +18,6 @@ const RoomPage  = async ({
         <Container>
             <div className="flex justify-between md:m-8 gap-4">
                 <div className="w-full">
-                    { room && <CardsChat room={room}/> }
                 </div>
                 <Participants/>
             </div>

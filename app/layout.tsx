@@ -4,6 +4,7 @@ import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider";
 import { ModalProvider } from "@/providers/modal-provider";
 import { Toaster } from "@/components/ui/toaster";
+import { SessionProvider } from "next-auth/react";
 
 const font = Urbanist({ subsets: ["latin"] });
 
@@ -21,6 +22,7 @@ export default function RootLayout({
       <html lang="en">
         <body className={font.className}>
           {/* Add Providers below */}
+          <SessionProvider>
           <ModalProvider/>
           <Toaster/>
           <ThemeProvider
@@ -31,6 +33,7 @@ export default function RootLayout({
             >
             {children}
           </ThemeProvider>
+          </SessionProvider>
         </body>
       </html>
   );
