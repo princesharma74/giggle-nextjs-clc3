@@ -41,8 +41,6 @@ export async function PATCH(
     };
   }, {});
   
-  return NextResponse.json({title: 'Username already taken', description: 'Please choose a different username'}, {status: 400});
-
   try {
     // Update the user data
     const updatedUser = await prismadb.user.update({
@@ -91,8 +89,10 @@ export async function PATCH(
     });
 
     return NextResponse.json(updatedUser);
-  } catch (error) {
-    console.error('Error updating user:', error);
-    return NextResponse.error();
+  } catch (error : any) {
+    if (error.code === 'P2002' && error.meta?.target === 'User_username_key') {
+      return NextResponse.json({ error: 'This username is already taken.' }, { status: 409 });
+    }
+    return NextResponse.json({ error: error.message || 'Unknown error' }, { status: 500 });
   }
 }
