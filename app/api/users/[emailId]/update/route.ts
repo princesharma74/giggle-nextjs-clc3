@@ -22,6 +22,33 @@ const validKeys = [
   'rating_change'
 ];
 
+const validCodeforcesKeys = [
+  'codeforces_id',
+  'verified',
+  'rating',
+  'global_rank',
+  'number_of_contests',
+  'number_of_questions'
+];
+
+const validCodechefKeys = [
+  'codechef_id',
+  'verified',
+  'rating',
+  'global_rank',
+  'number_of_contests',
+  'number_of_questions'
+];
+
+const validLeetcodeKeys = [
+  'leetcode_id',
+  'verified',
+  'rating',
+  'global_rank',
+  'number_of_contests',
+  'number_of_questions'
+];
+
 
 export async function PATCH(
   req: Request,
@@ -40,6 +67,36 @@ export async function PATCH(
       [key]: userData[key],
     };
   }, {});
+
+  // Extract fields from the codeforces object
+  const validCodeforces = Object.keys(codeforces)
+  .filter(key => validCodeforcesKeys.includes(key))
+  .reduce((obj, key) => {
+    return {
+      ...obj,
+      [key]: codeforces[key],
+    };
+  }, {});
+
+  // Extract fields from the codechef object
+  const validCodechef = Object.keys(codechef)
+  .filter(key => validCodechefKeys.includes(key))
+  .reduce((obj, key) => {
+    return {
+      ...obj,
+      [key]: codechef[key],
+    };
+  }, {});
+
+  const validLeetcode = Object.keys(leetcode)
+  .filter(key => validLeetcodeKeys.includes(key))
+  .reduce((obj, key) => {
+    return {
+      ...obj,
+      [key]: leetcode[key],
+    };
+  }, {});
+
   
   try {
     // Update the user data
@@ -56,10 +113,10 @@ export async function PATCH(
           upsert: {
             where: { user_email: emailId },
             create: {
-              ...codeforces
+              ...validCodeforces
             },
             update: {
-              ...codeforces
+              ...validCodeforces
             },
           },
         },
@@ -67,10 +124,10 @@ export async function PATCH(
           upsert: {
             where: { user_email: emailId },
             create: {
-              ...codechef
+              ...validCodechef 
             },
             update: {
-              ...codechef
+              ...validCodechef 
             },
           },
         },
@@ -78,10 +135,10 @@ export async function PATCH(
           upsert: {
             where: { user_email: emailId },
             create: {
-              ...leetcode
+              ...validLeetcode
             },
             update: {
-              ...leetcode
+              ...validLeetcode
             },
           },
         }

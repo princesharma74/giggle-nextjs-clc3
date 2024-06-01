@@ -269,7 +269,7 @@ export default function Dashboard() {
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel className="font-semibold text-1xl">Gender</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <Select onValueChange={field.onChange} value={field.value || undefined}>
                           <FormControl>
                             <SelectTrigger>
                               <SelectValue placeholder="Select your gender" />

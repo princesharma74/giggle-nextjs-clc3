@@ -1,36 +1,29 @@
 import NextAuth from "next-auth"
-import GitHub from "next-auth/providers/github"
-import Google from "next-auth/providers/google"
+import authConfig from "@/auth.config"
 import { Gender } from "@prisma/client"
-import getOrCreateUser from "@/actions/get-or-create-user"
-import { User } from "@/types"
-import 'next-auth'
+import prismadb from "./lib/prismadb";
+import getOrCreateUser from "@/actions/get-or-create-user";
 
 declare module 'next-auth' {
- interface User {
-    username: string,
-    first_name: string | null | undefined, 
-    last_name: string | null | undefined, 
-    bio: string | null,
-    gender: Gender | null,
-    codeforces_id: string | null | undefined,
-    codeforces_verified: boolean | undefined,
-    leetcode_id: string | null | undefined,
-    leetcode_verified: boolean | undefined,
-    codechef_id: string | null | undefined,
-    codechef_verified: boolean | undefined,
+  interface User {
+     username: string,
+     first_name: string | null | undefined, 
+     last_name: string | null | undefined, 
+     bio: string | null,
+     gender: Gender | null,
+     codeforces_id: string | null | undefined,
+     codeforces_verified: boolean | undefined,
+     leetcode_id: string | null | undefined,
+     leetcode_verified: boolean | undefined,
+     codechef_id: string | null | undefined,
+     codechef_verified: boolean | undefined,
+  }
  }
-}
 
- 
 export const {handlers, signIn, signOut, auth } = NextAuth({
-  providers: [GitHub, Google],
   callbacks: {
-    jwt({ token, user }) {
-      if (user) { // User is available during sign-in
-        token.id = user.id
-      }
-      return token
+    async jwt({ token}){
+      return token;
     },
     async session({ session, token }) {
       const userInfo = await getOrCreateUser(session.user.name, session.user.email, session.user.image)
@@ -51,6 +44,7 @@ export const {handlers, signIn, signOut, auth } = NextAuth({
       session.user.leetcode_verified = userInfo.leetcode?.verified
       return session
     },
-  }
-},
-)
+  },
+  session: { strategy: "jwt"},
+  ...authConfig
+});
