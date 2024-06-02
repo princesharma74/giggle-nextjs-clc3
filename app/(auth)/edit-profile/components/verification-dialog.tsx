@@ -19,6 +19,10 @@ interface VerifyUserIdProps {
     onClose: () => void;
 }
 
+const headers = {
+'Content-Type': 'application/json',
+'Authorization': `Bearer ${process.env.API_TOKEN}`
+}
 
 const VerifyUserId : React.FC<VerifyUserIdProps> = ({
     platform,
@@ -44,7 +48,7 @@ const VerifyUserId : React.FC<VerifyUserIdProps> = ({
             try{
                 // const response = await axios.get(`https://cors-anywhere.herokuapp.com/https://codeforces.com/profile/${user?.codeforces_id}`)
                 const data = { uuid, email: user?.email }
-                const response = await axios.post(`/api/platform/codeforces/${user?.codeforces_id}`, data)
+                const response = await axios.post(`/api/platform/codeforces/${user?.codeforces_id}`, data, {headers})
                 toast({
                     title: response.data.title,
                     description: response.data.description,
@@ -64,7 +68,7 @@ const VerifyUserId : React.FC<VerifyUserIdProps> = ({
             try{
                 // const response = await axios.get(`https://cors-anywhere.herokuapp.com/https://www.codechef.com/users/${user?.codechef_id}`)
                 const data = { uuid, email: user?.email }
-                const response = await axios.post(`/api/platform/codechef/${user?.codechef_id}`, data)
+                const response = await axios.post(`/api/platform/codechef/${user?.codechef_id}`, data, {headers})
                 toast({
                     title: response.data.title,
                     description: response.data.description,
@@ -83,7 +87,7 @@ const VerifyUserId : React.FC<VerifyUserIdProps> = ({
         else if(platform === Platform.leetcode) {
             try{
                 const data = { uuid, email: user?.email }
-                const response = await axios.post(`/api/platform/leetcode/${user?.leetcode_id}`, data)
+                const response = await axios.post(`/api/platform/leetcode/${user?.leetcode_id}`, data, {headers})
                 toast({
                     title: response.data.title,
                     description: response.data.description,

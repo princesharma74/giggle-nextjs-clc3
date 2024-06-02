@@ -305,7 +305,21 @@ export default function Dashboard() {
                                 onClick={() => {
                                 verifyModalState.setUUID(v4().slice(0,8))
                                 verifyModalState.setPlatform(Platform.codeforces)
-                                verifyModalState.onOpen()
+                                if(field.value === '') {
+                                    toast({
+                                        title: "Verification Failed",
+                                        description: "Codeforces ID not found",
+                                    });
+                                }
+                                else if(user?.codeforces_id === ''){
+                                    toast({
+                                        title: "Verification Failed",
+                                        description: "Click save to update your Codeforces ID",
+                                    });
+                                }
+                                else{
+                                  verifyModalState.onOpen()
+                                }
                               }}>
                                 Verify
                               </Badge>
@@ -330,8 +344,22 @@ export default function Dashboard() {
                                 className="cursor-pointer"
                                 onClick={() => {
                                 verifyModalState.setUUID(v4().slice(0,8))
-                                verifyModalState.setPlatform(Platform.codeforces)
-                                verifyModalState.onOpen()
+                                verifyModalState.setPlatform(Platform.codechef)
+                                if(field.value === '') {
+                                    toast({
+                                        title: "Verification Failed",
+                                        description: "Codechef ID not found",
+                                    });
+                                }
+                                else if(user?.codechef_id === ''){
+                                    toast({
+                                        title: "Verification Failed",
+                                        description: "Click save to update your Codechef ID",
+                                    });
+                                }
+                                else{
+                                  verifyModalState.onOpen()
+                                }
                               }}>
                                 Verify
                               </Badge>
@@ -357,7 +385,21 @@ export default function Dashboard() {
                                 onClick={() => {
                                   verifyModalState.setUUID(v4().slice(0,8))
                                   verifyModalState.setPlatform(Platform.leetcode)
-                                  verifyModalState.onOpen()
+                                  if(field.value === '') {
+                                    toast({
+                                        title: "Verification Failed",
+                                        description: "Leetcode ID not found",
+                                    });
+                                  }
+                                  else if(user?.leetcode_id === ''){
+                                      toast({
+                                        title: "Verification Failed",
+                                        description: "Click save to update your Leetcode ID",
+                                    });
+                                  }
+                                  else{
+                                    verifyModalState.onOpen()
+                                  }
                                 }}>
                                 Verify
                               </Badge>

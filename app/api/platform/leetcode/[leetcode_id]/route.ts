@@ -1,3 +1,4 @@
+import prismadb from "@/lib/prismadb";
 import axios from "axios";
 import { NextResponse } from "next/server";
 
@@ -29,14 +30,16 @@ export async function POST(req: Request, { params }: { params: { leetcode_id: st
         // Check if the UUID matches the aboutMe field
         const isVerified = uuid === aboutMe;
         
-        // Update the user's verification status
-        await axios.patch(`${process.env.BACKEND_API_URL}/api/users/${email}/update`, { leetcode: { verified: isVerified } });
-        
-        // Return the appropriate response
-        return NextResponse.json({
-            title: isVerified ? "Verification Successful" : "Verification Failed",
-            description: isVerified ? "LeetCode user ID verified" : "Make sure you have added the verification code to your LeetCode profile"
-        });
+        try{
+            await prismadb.leetcode.update({
+                where: { user_email: email },
+                data: { verified: isVerified }
+            });
+            return NextResponse.json({ title : isVerified ? "Verification Successful" : "Verification Failed", description: isVerified ? "Leetcode user ID verified" : "Make sure you have added the verification code to your Leetcode profile"});
+        }
+        catch(err : any) {
+            return new NextResponse(JSON.stringify({ title: "Verification Failed", description: err.message }), { status: 500 });
+        } 
     } catch (err: any) {
         return new NextResponse(JSON.stringify({
             title: "Verification Failed",
