@@ -1,4 +1,3 @@
-import { Contest, Room, Topic } from "@/types"
 
 export type SiteConfig = typeof siteConfig
 
@@ -33,6 +32,7 @@ export const siteConfig = {
     ]
 }
 
+/*
 export const rooms: Room[] = [
     {
         id : 1,
@@ -287,3 +287,4 @@ export const contests : Contest[] = [
         platform: "Leetcode"
     }
 ]
+*/
