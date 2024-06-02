@@ -108,8 +108,9 @@ model Message {
 }
 
 model Problem {
-  title       String   @id
-  platform    Platform
+  problem_title       String   @id
+  platform    Platform?
+  problem_link        String?
   submissions Submission[]
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -123,11 +124,11 @@ enum Platform {
 
 model Contest {
   title           String   @id
-  url             String
-  platform        Platform
-  start_time      DateTime
+  url             String?
+  platform        Platform?
+  start_time      DateTime?
   end_time        DateTime?
-  total_questions Int
+  total_questions Int?
   rating_changes  RatingChange[] @relation("ContestToRatingChange")
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
@@ -139,13 +140,13 @@ model Topic {
 }
 
 model Submission {
-  id             Int      @id @default(autoincrement())
-  submittedAt    DateTime
-  link           String?
+  submission_id             Int      @id
+  submitted_at    DateTime
+  submission_url           String?
   problem_title  String
-  problem        Problem  @relation(fields: [problem_title], references: [title])
+  problem        Problem?  @relation(fields: [problem_title], references: [problem_title])
   user_email     String
-  submitted_by   User     @relation("UserToSubmission", fields: [user_email], references: [email])
+  submitted_by   User?     @relation("UserToSubmission", fields: [user_email], references: [email])
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 
@@ -154,18 +155,19 @@ model Submission {
 }
 
 model RatingChange {
-  id                     Int      @id @default(autoincrement())
   contest_title          String
   contest                Contest  @relation("ContestToRatingChange", fields: [contest_title], references: [title])
-  user_email             String
+  user_email             String 
   user                   User     @relation("UserToRatingChange", fields: [user_email], references: [email])
-  rating_change          Int 
+  final_rating           Int?
+  rating_change          Int? 
   end_time               DateTime?
-  rank                   Int
-  number_of_problems_solved Int
+  rank                   Int?
+  number_of_problems_solved Int?
   createdAt              DateTime @default(now())
   updatedAt              DateTime @updatedAt
 
+  @@id(name: "identifier", [contest_title, user_email])
   @@index([contest_title])
   @@index([user_email])
 }

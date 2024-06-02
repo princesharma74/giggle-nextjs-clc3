@@ -17,7 +17,6 @@ export default auth((req) => {
             const token = req.headers.get('Authorization')?.split("Bearer ")[1];
             if(!token) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
             try{
-                console.log(token);
                 if(token === process.env.API_TOKEN) return;
             }
             catch(e){
