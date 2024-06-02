@@ -1,7 +1,7 @@
-import ProfilePage from "@/components/profile/profile-page";
-import TopicsView from "@/components/topics/topics-view";
+// import ProfilePage from "@/components/profile/profile-page";
+// import TopicsView from "@/components/topics/topics-view";
 import Container from "@/components/ui/container";
-import ContestsList from "@/components/contests/contests-list";
+// import ContestsList from "@/components/contests/contests-list";
 
 const UserProfile = async ({ params } : { params: { userId: string }}
 ) => {

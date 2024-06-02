@@ -1,3 +1,4 @@
+/*
 import { getRatingChanges } from "@/actions/get-rating-changes";
 import RatingChangeCard from "./rating_change_card";
 import { RatingChange } from "@/types";
@@ -35,3 +36,4 @@ const RatingChangeListView : React.FC<RatingChangeListViewProps> = async ({
 }
  
 export default RatingChangeListView;
+*/

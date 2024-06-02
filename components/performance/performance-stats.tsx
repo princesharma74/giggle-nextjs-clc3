@@ -1,3 +1,4 @@
+/*
 import { Leetcode, Codeforces, Codechef } from "@/types";
 import Link from "next/link";
 import { getBadge } from "../profile/rank-label";
@@ -57,7 +58,6 @@ const PerformanceStats : React.FC<RatingProps> = ({
                     </div>
                 </Link>
             </div>
-            {/* --------------------- */}
             <div className="border rounded-md w-full p-4">
             <div className="text-center font-bold">
                 Total Problems Solved ({((leetcode?.number_of_questions ?? 0) + (codechef?.number_of_questions ?? 0) + (codeforces?.number_of_questions ?? 0))})
@@ -89,3 +89,4 @@ const PerformanceStats : React.FC<RatingProps> = ({
 }
  
 export default PerformanceStats;
+*/

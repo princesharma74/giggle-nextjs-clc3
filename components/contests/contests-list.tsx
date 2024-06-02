@@ -1,3 +1,4 @@
+/*
 "use client"
 import { Contest } from "@/types";
 import ContestCard from "./contest-card";
@@ -34,3 +35,4 @@ const ContestsList : React.FC<ContestsListProps> = ({
 }
  
 export default ContestsList;
+*/

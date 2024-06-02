@@ -1,3 +1,4 @@
+/*
 "use client"
 import { Topic } from "@/types";
 import { Separator } from "../ui/separator";
@@ -56,3 +57,4 @@ const TopicsView : React.FC<TopicsViewProps> = ({
 }
  
 export default TopicsView;
+*/

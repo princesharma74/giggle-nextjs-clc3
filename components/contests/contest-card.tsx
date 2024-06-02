@@ -1,3 +1,4 @@
+/*
 import Link from "next/link";
 import { Separator } from "../ui/separator";
 import TimeAgo from "../ui/time-ago";
@@ -29,3 +30,4 @@ const ContestCard : React.FC<ContestCardProps> = ({
 }
  
 export default ContestCard;
+*/

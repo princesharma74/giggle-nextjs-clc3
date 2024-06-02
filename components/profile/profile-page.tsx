@@ -1,3 +1,4 @@
+/*
 "use client"
 import { RatingChangePagination, User } from "@/types";
 import NoResults from "../ui/no-result";
@@ -50,3 +51,4 @@ const ProfilePage : React.FC<ProfilePageProps> = ({
 }
  
 export default ProfilePage;
+*/

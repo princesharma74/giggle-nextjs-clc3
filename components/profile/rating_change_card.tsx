@@ -1,3 +1,4 @@
+/*
 import { RatingChange } from "@/types";
 import { Badge } from "../ui/badge";
 
@@ -35,3 +36,4 @@ const RatingChangeCard : React.FC<RatingChangeCardProps> = ({
 }
  
 export default RatingChangeCard;
+*/

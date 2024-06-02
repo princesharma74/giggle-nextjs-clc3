@@ -1,4 +1,4 @@
-import ContestsList from "@/components/contests/contests-list";
+// import ContestsList from "@/components/contests/contests-list";
 import Container from "@/components/ui/container";
 
 const ContestsPage = async () => {
