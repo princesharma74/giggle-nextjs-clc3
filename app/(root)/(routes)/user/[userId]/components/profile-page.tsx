@@ -1,9 +1,9 @@
 "use client"
-import NoResults from "../../../../../../components/ui/no-result";
+import NoResults from "@/components/ui/no-result";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { Button } from "../../../../../../components/ui/button";
-import PerformanceStats from "../../../../../../components/performance/performance-stats";
+import { Button } from "@/components/ui/button";
+import PerformanceStats from "@/components/performance/performance-stats";
 import RatingChangeListView from "./rating_change_list";
 import profileImage from "@/public/avatar.svg";
 import { RatingChange } from "@/types";
@@ -11,18 +11,14 @@ import { User } from "@/types";
 import { useParams } from "next/navigation";
 import { SubmissionColumn, columns } from "./columns";
 import { DataTable } from "@/components/ui/data-table";
-import axios from "axios";
-import { auth } from "@/auth";
 
 interface ProfilePageProps {
     user: User | null
-    session_user: User | null
     submissions: SubmissionColumn[]
 }
 
 const ProfilePage : React.FC<ProfilePageProps> = ({
     user,
-    session_user,
     submissions
 }) => {
     const [isMounted, setIsMounted] = useState(false);
@@ -37,8 +33,8 @@ const ProfilePage : React.FC<ProfilePageProps> = ({
         return <NoResults message="No user data available."/>
     }
 
-    const onFollow = async () => {
-        const response = await axios.post('/api/follow', {userId: session_user?.username, followId: user.username})
+    const onFollow = () => {
+        console.log("Follow");
     }
 
 
@@ -59,7 +55,7 @@ const ProfilePage : React.FC<ProfilePageProps> = ({
                     <div className="text-sm text-gray-500 text-center">@{user.username}</div>
                 </div>
                 <Button variant={"outline"} className="rounded-full"
-                    onClick={onFollow}
+                    onClick={()=>{console.log("Follow")}}
                 >Follow</Button>
             </div>
             <div className="flex flex-col gap-2 md:w-3/4">
