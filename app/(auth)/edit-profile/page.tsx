@@ -311,7 +311,7 @@ export default function Dashboard() {
                                         description: "Codeforces ID not found",
                                     });
                                 }
-                                else if(user?.codeforces_id === ''){
+                                else if(user?.codeforces_id !== field.value){
                                     toast({
                                         title: "Verification Failed",
                                         description: "Click save to update your Codeforces ID",
@@ -351,7 +351,7 @@ export default function Dashboard() {
                                         description: "Codechef ID not found",
                                     });
                                 }
-                                else if(user?.codechef_id === ''){
+                                else if(user?.codechef_id !== field.value){
                                     toast({
                                         title: "Verification Failed",
                                         description: "Click save to update your Codechef ID",
@@ -391,7 +391,7 @@ export default function Dashboard() {
                                         description: "Leetcode ID not found",
                                     });
                                   }
-                                  else if(user?.leetcode_id === ''){
+                                  else if(user?.leetcode_id !== field.value){
                                       toast({
                                         title: "Verification Failed",
                                         description: "Click save to update your Leetcode ID",
