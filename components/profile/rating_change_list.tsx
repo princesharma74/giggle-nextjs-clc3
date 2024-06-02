@@ -1,15 +1,10 @@
-/*
-import { getRatingChanges } from "@/actions/get-rating-changes";
 import RatingChangeCard from "./rating_change_card";
-import { RatingChange } from "@/types";
-import { RatingChangePagination } from "@/types";
 import { useState, useEffect } from "react";
 import NoResults from "../ui/no-result";
-
+import { RatingChange } from "@/types";
 
 interface RatingChangeListViewProps{
-    data: RatingChangePagination | null
-}
+    data: RatingChange[] | null }
 
 const RatingChangeListView : React.FC<RatingChangeListViewProps> = async ({
     data
@@ -25,15 +20,13 @@ const RatingChangeListView : React.FC<RatingChangeListViewProps> = async ({
     if(!data){
         return <NoResults message="No contest performance found."/>
     }
-    const rating_changes = data?.results;
     return ( 
         <div className="flex flex-col w-full gap-2">
-            {rating_changes.map((rating_change) => (
-                <RatingChangeCard key={rating_change.id} data={rating_change}/>
+            {data.map((rating_change) => (
+                <RatingChangeCard key={rating_change.contest_title} data={rating_change}/>
             ))}
         </div>
      );
 }
  
 export default RatingChangeListView;
-*/

@@ -1,6 +1,4 @@
-/*
 "use client"
-import { RatingChangePagination, User } from "@/types";
 import NoResults from "../ui/no-result";
 import { useEffect, useState } from "react";
 import Image from "next/image";
@@ -8,10 +6,12 @@ import { Button } from "../ui/button";
 import PerformanceStats from "../performance/performance-stats";
 import RatingChangeListView from "./rating_change_list";
 import profileImage from "@/public/avatar.svg";
+import { RatingChange } from "@/types";
+import { User } from "@/types";
 
 interface ProfilePageProps {
     user: User | null
-    data: RatingChangePagination | null
+    data: RatingChange[]
 }
 
 const ProfilePage : React.FC<ProfilePageProps> = ({
@@ -40,7 +40,7 @@ const ProfilePage : React.FC<ProfilePageProps> = ({
                         />
                 </div>
                 <div className="flex flex-col">
-                    <div className="text-lg">{user.name}</div>
+                    <div className="text-lg">{user.first_name} {user.last_name}</div>
                     <div className="text-sm text-gray-500">@{user.username}</div>
                 </div>
                 <Button variant={"outline"} className="rounded-full">Follow</Button>
@@ -51,4 +51,3 @@ const ProfilePage : React.FC<ProfilePageProps> = ({
 }
  
 export default ProfilePage;
-*/

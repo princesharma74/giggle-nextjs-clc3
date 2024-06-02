@@ -1,12 +1,11 @@
-/*
-import { Leetcode, Codeforces, Codechef } from "@/types";
 import Link from "next/link";
 import { getBadge } from "../profile/rank-label";
 import { Badge } from "../ui/badge";
+import { Codeforces, Leetcode, Codechef } from "@prisma/client";
 interface RatingProps {
-    leetcode: Leetcode | undefined,
-    codeforces: Codeforces | undefined,
-    codechef: Codechef | undefined
+    leetcode: Leetcode | null;
+    codeforces: Codeforces | null;
+    codechef: Codechef | null;
 }
 
 const PerformanceStats : React.FC<RatingProps> = ({
@@ -15,7 +14,7 @@ const PerformanceStats : React.FC<RatingProps> = ({
     return (
             <>
             <div className="grid grid-cols-3 gap-1 md:gap-4 justify-center items-center w-full">
-                <Link href={`https://www.leetcode.com/${leetcode?.username}` ?? "#"} className="border p-5 rounded-md flex flex-col items-center">
+                <Link href={`https://www.leetcode.com/${leetcode?.leetcode_id}` ?? "#"} className="border p-5 rounded-md flex flex-col items-center">
                     <div className="text font-medium text-center">
                         Leetcode
                     </div>
@@ -26,10 +25,10 @@ const PerformanceStats : React.FC<RatingProps> = ({
                         <Badge variant={"outline"}>{getBadge('Leetcode', leetcode?.rating)}</Badge>
                     }
                     <div className="text-xs font-medium text-center">
-                        @{leetcode?.username}
+                        @{leetcode?.leetcode_id}
                     </div>
                 </Link>
-                <Link href={`https://www.codeforces.com/profile/${codeforces?.username}` ?? "#"} className="border p-5 rounded-md flex flex-col items-center">
+                <Link href={`https://www.codeforces.com/profile/${codeforces?.codeforces_id}` ?? "#"} className="border p-5 rounded-md flex flex-col items-center">
                     <div className="text font-medium text-center">
                         Codeforces
                     </div>
@@ -40,10 +39,10 @@ const PerformanceStats : React.FC<RatingProps> = ({
                         <Badge variant={"outline"}>{getBadge('Codeforces', codeforces?.rating)}</Badge>
                     }
                     <div className="text-xs font-medium text-center">
-                        @{codeforces?.username}
+                        @{codeforces?.codeforces_id}
                     </div>
                 </Link>
-                <Link href={`https://www.codechef.com/users/${codechef?.username}` ?? "#"} className="border p-5 rounded-md flex flex-col items-center">
+                <Link href={`https://www.codechef.com/users/${codechef?.codechef_id}` ?? "#"} className="border p-5 rounded-md flex flex-col items-center">
                     <div className="text font-medium text-center">
                         Codechef
                     </div>
@@ -54,7 +53,7 @@ const PerformanceStats : React.FC<RatingProps> = ({
                         <Badge variant={"outline"}>{getBadge('Codechef', codechef?.rating)}</Badge>
                     }
                     <div className="text-xs font-medium text-center">
-                        @{codechef?.username}
+                        @{codechef?.codechef_id}
                     </div>
                 </Link>
             </div>
@@ -89,4 +88,3 @@ const PerformanceStats : React.FC<RatingProps> = ({
 }
  
 export default PerformanceStats;
-*/

@@ -20,3 +20,9 @@ export type User = Prisma.UserGetPayload<{
         codechef: true
     }
 }>
+
+export type RatingChange = Prisma.RatingChangeGetPayload<{
+    include: {
+        contest: true
+    }
+}>
