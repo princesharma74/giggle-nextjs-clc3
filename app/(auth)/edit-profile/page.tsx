@@ -120,9 +120,14 @@ export default function Dashboard() {
     if(data.leetcode && data.leetcode?.leetcode_id !== user?.leetcode_id){
       data.leetcode.verified = false;
     }
+    console.log(data)
     try{
+      const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${process.env.API_TOKEN}`
+      }
       setLoading(true);
-      const response = await axios.patch(`/api/users/${data.email}/update`, data);
+      const response = await axios.patch(`/api/users/${data.email}/update`, data, {headers});
       toast({
         title: "Updated",
         description: "Your profile has been updated",
