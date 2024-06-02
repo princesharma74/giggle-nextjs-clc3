@@ -61,24 +61,24 @@ export default function Dashboard() {
   const form = useForm<BasicUser>({
     resolver: zodResolver(basicUserSchema),
     defaultValues: {
-      first_name: '',
-      last_name: '',
-      bio: '',
-      gender: undefined,
-      username: '',
-      email: '',
-      avatar: '',
+      first_name: user?.first_name || '',
+      last_name: user?.last_name || '',
+      bio: user?.bio || '',
+      gender: user?.gender || undefined,
+      username: user?.username || '',
+      email: user?.email || '',
+      avatar: user?.image || '',
       codeforces: {
-        codeforces_id: '',
-        verified: false
+        codeforces_id: user?.codeforces_id || '',
+        verified: user?.codeforces_verified || false
       },
       codechef: {
-        codechef_id: '',
-        verified: false
+        codechef_id: user?.codechef_id || '',
+        verified: user?.codechef_verified || false
       },
       leetcode: {
-        leetcode_id: '',
-        verified: false
+        leetcode_id: user?.leetcode_id || '',
+        verified: user?.leetcode_verified || false
       }
     }
   })

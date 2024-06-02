@@ -1,4 +1,4 @@
-import ProfilePage from "@/components/profile/profile-page";
+import ProfilePage from "@/app/(root)/(routes)/user/[userId]/components/profile-page";
 // import TopicsView from "@/components/topics/topics-view";
 import Container from "@/components/ui/container";
 import NoResults from "@/components/ui/no-result";

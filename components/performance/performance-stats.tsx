@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getBadge } from "../profile/rank-label";
+import { getBadge } from "../../app/(root)/(routes)/user/[userId]/components/rank-label";
 import { Badge } from "../ui/badge";
 import { Codeforces, Leetcode, Codechef } from "@prisma/client";
 interface RatingProps {
