@@ -4,6 +4,9 @@ import Container from "@/components/ui/container";
 import NoResults from "@/components/ui/no-result";
 // import ContestsList from "@/components/contests/contests-list";
 import prismadb from "@/lib/prismadb";
+import { formatDistanceToNow } from "date-fns";
+import { SubmissionColumn, columns } from "./components/columns";
+import { DataTable } from "@/components/ui/data-table";
 
 const UserProfile = async ({ params } : { params: { userId: string }}
 ) => {
@@ -38,18 +41,32 @@ const UserProfile = async ({ params } : { params: { userId: string }}
         take: 10
     });
 
+    const submissions = await prismadb.submission.findMany({
+        where: {
+            user_email: user.email
+        },
+        include: {
+            problem: true
+        },
+        orderBy: {
+            submitted_at: 'desc'
+        },
+    });
+
+    const formattedSubmissions : SubmissionColumn[] = submissions.map((item) => ({
+        submission_id: item.submission_id,
+        problem_name: item.problem.problem_title,
+        submission_url: item.submission_url,
+        problem_link: item.problem.problem_link,
+        time_ago: formatDistanceToNow(new Date(item.submitted_at), { addSuffix: true })
+    }))
+
     return ( 
         <div className="my-4">
             <Container>
-                <div className="flex justify-center mx-4">
-                    {/* <div className="w-48"> */}
-                        {/* <TopicsView topics={topics}/> */}
-                    {/* </div> */}
-                    <ProfilePage user={user} data={rating_changes}/>
-                    {/* <div className="w-48"> */}
-                        {/* <ContestsList contests={contests}/> */}
-                    {/* </div> */}
-                </div>
+                    <div className="mx-2">
+                        <ProfilePage user={user} submissions={formattedSubmissions}/>
+                    </div>
             </Container>
         </div>
      );

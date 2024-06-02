@@ -12,7 +12,7 @@ const PerformanceStats : React.FC<RatingProps> = ({
     leetcode, codeforces, codechef
 }) => {
     return (
-            <>
+            <div className="grid grid-cols-1 gap-2">
             <div className="grid grid-cols-3 gap-1 md:gap-4 justify-center items-center w-full">
                 <Link href={`https://www.leetcode.com/${leetcode?.leetcode_id}` ?? "#"} className="border p-5 rounded-md flex flex-col items-center">
                     <div className="text font-medium text-center">
@@ -28,7 +28,7 @@ const PerformanceStats : React.FC<RatingProps> = ({
                         @{leetcode?.leetcode_id}
                     </div>
                 </Link>
-                <Link href={`https://www.codeforces.com/profile/${codeforces?.codeforces_id}` ?? "#"} className="border p-5 rounded-md flex flex-col items-center">
+                <Link href={`https://codeforces.com/profile/${codeforces?.codeforces_id}` ?? "#"} className="border p-5 rounded-md flex flex-col items-center">
                     <div className="text font-medium text-center">
                         Codeforces
                     </div>
@@ -58,8 +58,8 @@ const PerformanceStats : React.FC<RatingProps> = ({
                 </Link>
             </div>
             <div className="border rounded-md w-full p-4">
-            <div className="text-center font-bold">
-                Total Problems Solved ({((leetcode?.number_of_questions ?? 0) + (codechef?.number_of_questions ?? 0) + (codeforces?.number_of_questions ?? 0))})
+            <div className="text-center font-bold text-lg">
+                Total ({((leetcode?.number_of_questions ?? 0) + (codechef?.number_of_questions ?? 0) + (codeforces?.number_of_questions ?? 0))}) Problems Solved 
             </div>
 
                 <div className="grid grid-cols-3 justify-center items-center">
@@ -83,7 +83,7 @@ const PerformanceStats : React.FC<RatingProps> = ({
                     </div>
                 </div>
             </div>
-            </>
+            </div>
      );
 }
  

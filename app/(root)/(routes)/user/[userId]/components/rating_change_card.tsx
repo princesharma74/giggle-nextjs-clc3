@@ -1,4 +1,5 @@
-import { Badge } from "../../../../../../components/ui/badge";
+import { Badge } from "@/components/ui/badge";
+import {format} from "date-fns"
 import { RatingChange } from "@/types";
 
 interface RatingChangeCardProps {
@@ -11,7 +12,7 @@ const RatingChangeCard : React.FC<RatingChangeCardProps> = ({
     return ( 
             <div className="flex flex-col w-full p-4 border rounded-md">
                 <div className="flex justify-between w-full font-bold">
-                    <div className="text-lg">{data.contest_title}</div>
+                    <div className="text-lg font-semibold">{data.contest_title}</div>
                     <div className="text-2xl">
                         {
                             data.rating_change && data.rating_change < 0 ?
@@ -25,11 +26,12 @@ const RatingChangeCard : React.FC<RatingChangeCardProps> = ({
                     </div>
                 </div>
                 <div className="flex justify-between w-full">
-                    <div className="text-lg">Global Rank: {data.rank}</div>
+                    <div className="text-md">Global Rank: {data.rank}</div>
                     <div>
-                        <Badge>{data.contest.platform}</Badge>
+                        <Badge variant={"outline"}>{data.contest.platform}</Badge>
                     </div>
                 </div>
+                <div className="text-sm">{data.contest.start_time && format(data.contest.start_time, "MMMM do, yyyy")}</div>
             </div>
      );
 }

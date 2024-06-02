@@ -9,14 +9,21 @@ import profileImage from "@/public/avatar.svg";
 import { RatingChange } from "@/types";
 import { User } from "@/types";
 import { useParams } from "next/navigation";
+import { SubmissionColumn, columns } from "./columns";
+import { DataTable } from "@/components/ui/data-table";
+import axios from "axios";
+import { auth } from "@/auth";
 
 interface ProfilePageProps {
     user: User | null
-    data: RatingChange[]
+    session_user: User | null
+    submissions: SubmissionColumn[]
 }
 
 const ProfilePage : React.FC<ProfilePageProps> = ({
     user,
+    session_user,
+    submissions
 }) => {
     const [isMounted, setIsMounted] = useState(false);
     const params = useParams();
@@ -29,8 +36,15 @@ const ProfilePage : React.FC<ProfilePageProps> = ({
     if (!user){
         return <NoResults message="No user data available."/>
     }
+
+    const onFollow = async () => {
+        const response = await axios.post('/api/follow', {userId: session_user?.username, followId: user.username})
+    }
+
+
     return ( 
-            <div className="flex flex-col items-center gap-2 mx-15 md:w-1/2">
+        <div className="flex flex-col gap-2 items-center">
+            <div className="flex flex-col items-center gap-2 w-full">
                 <div className="w-20 h-20 bg-white rounded-full">
                     <Image
                         src={user.avatar ? user.avatar : profileImage}
@@ -41,13 +55,25 @@ const ProfilePage : React.FC<ProfilePageProps> = ({
                         />
                 </div>
                 <div className="flex flex-col">
-                    <div className="text-lg">{user.first_name} {user.last_name}</div>
-                    <div className="text-sm text-gray-500">@{user.username}</div>
+                    <div className="text-2xl font-semibold text-center">{user.first_name} {user.last_name}</div>
+                    <div className="text-sm text-gray-500 text-center">@{user.username}</div>
                 </div>
-                <Button variant={"outline"} className="rounded-full">Follow</Button>
-                <PerformanceStats leetcode={user.leetcode} codeforces={user.codeforces} codechef={user.codechef}/>
-                <div className="w-full"><RatingChangeListView user_email={user?.email}/></div>
+                <Button variant={"outline"} className="rounded-full"
+                    onClick={onFollow}
+                >Follow</Button>
             </div>
+            <div className="flex flex-col gap-2 md:w-3/4">
+                <div>
+                    <PerformanceStats leetcode={user.leetcode} codeforces={user.codeforces} codechef={user.codechef}/>
+                </div>
+                <div>
+                    <RatingChangeListView user_email={user?.email}/>
+                </div>
+                <div>
+                    <DataTable searchKey="problem_name" columns={columns} data={submissions}/>
+                </div>
+            </div>
+        </div>
     );
 }
  

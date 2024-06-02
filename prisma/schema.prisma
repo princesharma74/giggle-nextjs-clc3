@@ -18,6 +18,10 @@ model User {
   gender         Gender?
   is_admin       Boolean  @default(false)
   avatar         String?  
+
+  followedBy User[]  @relation("UserFollows")
+  following  User[]  @relation("UserFollows")
+
   rooms          Room[]   @relation("UsersToRoom")
   submissions    Submission[] @relation("UserToSubmission")
   codechef       Codechef? @relation("UserToCodechef")
