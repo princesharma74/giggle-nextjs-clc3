@@ -33,7 +33,7 @@ export async function PATCH(
     const responses = [];
 
     for (const entry of body) {
-      const { user, contest, ...rating_change } = entry;
+      const { contest, ...rating_change } = entry;
 
       if (!contest || !contest.title) {
         responses.push({ error: "Contest and contest title are required" });
@@ -72,13 +72,29 @@ export async function PATCH(
         where: { 
             identifier: {
                 contest_title, 
-                user_email: user 
+                user_email: emailId
             }
         }, // Use separate fields for contest_title and user_email
         include: { contest: true },
-        update: validRatingChange,
-        create: { contest_title, user_email: user, ...validRatingChange }
-      });
+        update: {
+          ...validRatingChange,
+          contest: upsertedContest && {
+            connect: { title: contest_title }
+          },
+          user: {
+            connect: { email: emailId }
+        },
+        },
+        create: {
+          ...validRatingChange,
+          contest: upsertedContest && {
+            connect: { title: contest_title }
+          },
+          user: {
+            connect: { email: emailId }
+        },
+      }
+    });
 
       responses.push(updatedRatingChange);
     }

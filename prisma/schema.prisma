@@ -144,9 +144,9 @@ model Submission {
   submitted_at    DateTime
   submission_url           String?
   problem_title  String
-  problem        Problem?  @relation(fields: [problem_title], references: [problem_title])
+  problem        Problem  @relation(fields: [problem_title], references: [problem_title])
   user_email     String
-  submitted_by   User?     @relation("UserToSubmission", fields: [user_email], references: [email])
+  submitted_by   User     @relation("UserToSubmission", fields: [user_email], references: [email])
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 

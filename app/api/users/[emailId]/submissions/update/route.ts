@@ -58,13 +58,21 @@ export async function PATCH(
           include: { problem: true },
           create: {
             submission_id,
-            problem_title : problem_title,
-            user_email: emailId,
+            problem: updatedProblem && {
+              connect: { problem_title: problem_title },
+            },
+            submitted_by: {
+              connect: { email: emailId }
+            },
             submitted_at: submitted_at
           },
           update: {
-            problem_title : problem_title,
-            user_email: emailId,
+            problem: updatedProblem && {
+              connect: { problem_title: problem_title },
+            },
+            submitted_by: {
+              connect: { email: emailId }
+            },
             ...validSubmission,
           },
         });

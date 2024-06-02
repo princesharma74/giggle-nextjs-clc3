@@ -4,7 +4,8 @@ import NoResults from "../ui/no-result";
 import { RatingChange } from "@/types";
 
 interface RatingChangeListViewProps{
-    data: RatingChange[] | null }
+    data: RatingChange[] | null 
+}
 
 const RatingChangeListView : React.FC<RatingChangeListViewProps> = async ({
     data

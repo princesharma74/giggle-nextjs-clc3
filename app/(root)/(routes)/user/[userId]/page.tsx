@@ -31,22 +31,24 @@ const UserProfile = async ({ params } : { params: { userId: string }}
             contest: true
         },
         orderBy: {
-            contest_title: 'desc'
+            contest: {
+                start_time: 'desc'
+            }
         },
-        take: 5
+        take: 10
     });
 
     return ( 
         <div className="my-4">
             <Container>
-                <div className="flex justify-between md:mx-8">
-                    <div className="w-48">
+                <div className="flex justify-center mx-4">
+                    {/* <div className="w-48"> */}
                         {/* <TopicsView topics={topics}/> */}
-                    </div>
+                    {/* </div> */}
                     <ProfilePage user={user} data={rating_changes}/>
-                    <div className="w-48">
+                    {/* <div className="w-48"> */}
                         {/* <ContestsList contests={contests}/> */}
-                    </div>
+                    {/* </div> */}
                 </div>
             </Container>
         </div>

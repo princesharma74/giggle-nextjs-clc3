@@ -69,8 +69,21 @@ export async function PATCH(
               }
           }, // Use separate fields for contest_title and user_email
           include: { contest: true },
-          update: validRatingChange,
-          create: { contest_title, user_email: emailId, ...validRatingChange }
+          update: {
+            ...validRatingChange,
+            contest: upsertedContest && {
+              connect: { title: contest_title }
+            }
+          },
+          create: {
+            ...validRatingChange,
+            contest: upsertedContest && {
+              connect: { title: contest_title }
+            },
+            user: {
+              connect: { email: emailId }
+            }
+          }
         });
 
     return NextResponse.json(updatedRatingChange);
