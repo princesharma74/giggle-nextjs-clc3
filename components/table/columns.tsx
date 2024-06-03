@@ -55,7 +55,7 @@ export const columns: ColumnDef<UserColumn>[] = [
         )
     },
     {
-        header: "Today's Submissions",
+        header: "Today's AC Submissions",
         accessorKey: 'todays_submissions',
     }
 ]

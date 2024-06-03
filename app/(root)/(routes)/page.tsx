@@ -1,14 +1,7 @@
 import Container from "@/components/ui/container";
-import RoomList from "@/components/rooms/room-list";
-// import TopicsView from "@/components/topics/topics-view";
-// import ContestsList from "@/components/contests/contests-list";
 import prismadb from "@/lib/prismadb";
-import { Button } from "@/components/ui/button";
-import { DataTable } from "@/components/ui/data-table";
 import { UserColumn } from "@/components/table/columns";
-import axios from "axios";
 import { auth } from "@/auth";
-import Link from "next/link";
 import HeroSection from "../../../components/home/hero-section";
 import CodersTable from "@/components/table/coders";
 import { differenceInMinutes, format } from "date-fns";

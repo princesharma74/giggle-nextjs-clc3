@@ -5,9 +5,16 @@ import { NextResponse } from "next/server";
 
 const { auth } = NextAuth(authConfig);
 
-export default auth((req) => {
+const headers = {
+    'Content-Type': 'application/json',
+    "Authorization": `Bearer ${process.env.API_TOKEN}`
+}
+
+
+export default auth(async (req) => {
     const { nextUrl } = req; 
     const isLoggedIn = !!req.auth; 
+    const user = req.auth?.user;
     const isPublicRoute = publicRoutes.some(route => 
         typeof route === 'string' ? route === nextUrl.pathname : route.test(nextUrl.pathname)
     );
@@ -27,9 +34,11 @@ export default auth((req) => {
         }
     }
     if(isOnlyLoggedOut){
-        if(isLoggedIn) return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl))
+        if(isLoggedIn) return NextResponse.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl))
     }
-    if(!isLoggedIn && !isPublicRoute) return Response.redirect(new URL("/", nextUrl))
+    if(!isLoggedIn && !isPublicRoute){
+        return NextResponse.redirect(new URL("/", nextUrl))
+    } 
 });
 
 export const config = {
