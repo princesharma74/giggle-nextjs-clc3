@@ -5,13 +5,15 @@ import Image from "next/image";
 import type { Session } from "@auth/core/types"
 import avatar from "@/public/avatar.svg"
 import Link from "next/link";
+import { handleSignOut } from "@/components/auth/server-actions";
+import { User } from "next-auth";
 
 interface LoggedInComponentProps {
-    session: Session
+  user: User | null
 }
  
 export const LoggedInComponent : React.FC<LoggedInComponentProps> = ({
-    session
+  user
 }) => {
     return ( 
         <DropdownMenu>
@@ -22,7 +24,7 @@ export const LoggedInComponent : React.FC<LoggedInComponentProps> = ({
             className="overflow-hidden rounded-full"
           >
             <Image
-              src={session?.user?.image || avatar}
+              src={user?.image || avatar}
               width={36}
               height={36}
               alt="Avatar"
@@ -31,7 +33,7 @@ export const LoggedInComponent : React.FC<LoggedInComponentProps> = ({
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <Link href={`/user/${session?.user?.username}`}>
+          <Link href={`/user/${user?.username}`}>
             <DropdownMenuLabel>
               My Profile
             </DropdownMenuLabel>
@@ -44,10 +46,7 @@ export const LoggedInComponent : React.FC<LoggedInComponentProps> = ({
           </Link>
           <DropdownMenuSeparator />
             <form
-              action={async () => {
-                "use server"
-                await signOut({ redirectTo: "/" })
-              }}
+              action={handleSignOut}
             >
               <button type="submit" className="w-full cursor-pointer">
                 <DropdownMenuItem className="cursor-pointer">

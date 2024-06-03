@@ -7,10 +7,32 @@ import prismadb from "@/lib/prismadb";
 import { formatDistanceToNow } from "date-fns";
 import { SubmissionColumn, columns } from "./components/columns";
 import { DataTable } from "@/components/ui/data-table";
+import { auth } from "@/auth";
+
+async function isFollowing(followedByUsername: string, followingUsername: string) {
+    const followedByUser = await prismadb.user.findUnique({
+      where: {
+        username: followedByUsername,
+      },
+      include: {
+        following: true,
+      },
+    });
+  
+    if (!followedByUser) {
+      throw new Error(`User with username ${followedByUsername} does not exist`);
+    }
+  
+    const isFollowing = followedByUser.following.some(user => user.username === followingUsername);
+  
+    return isFollowing;
+  }
 
 const UserProfile = async ({ params } : { params: { userId: string }}
 ) => {
 
+    const data = await auth();
+    const loggedInUser = data?.user;
     const user = await prismadb.user.findUnique({
         where: {
             username: params.userId
@@ -26,21 +48,6 @@ const UserProfile = async ({ params } : { params: { userId: string }}
         return( <NoResults message={"No user found"}/>)
     }
 
-    const rating_changes = await prismadb.ratingChange.findMany({
-        where: {
-            user_email: user.email
-        },
-        include: {
-            contest: true
-        },
-        orderBy: {
-            contest: {
-                start_time: 'desc'
-            }
-        },
-        take: 10
-    });
-
     const submissions = await prismadb.submission.findMany({
         where: {
             user_email: user.email
@@ -52,6 +59,12 @@ const UserProfile = async ({ params } : { params: { userId: string }}
             submitted_at: 'desc'
         },
     });
+
+    
+    var followed = false;
+    if(loggedInUser?.username){
+        followed = await isFollowing(loggedInUser?.username, user.username);
+    }
 
     const formattedSubmissions : SubmissionColumn[] = submissions.map((item) => ({
         submission_id: item.submission_id,
@@ -65,7 +78,7 @@ const UserProfile = async ({ params } : { params: { userId: string }}
         <div className="my-4">
             <Container>
                     <div className="mx-2">
-                        <ProfilePage user={user} submissions={formattedSubmissions}/>
+                        <ProfilePage isFollowing={followed} loggedInUser={loggedInUser} user={user} submissions={formattedSubmissions}/>
                     </div>
             </Container>
         </div>

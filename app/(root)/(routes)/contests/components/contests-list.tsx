@@ -1,10 +1,10 @@
-/*
 "use client"
-import { Contest } from "@/types";
 import ContestCard from "./contest-card";
-import NoResults from "../ui/no-result";
-import { Separator } from "../ui/separator";
+import NoResults from "@/components/ui/no-result";
+import { Separator } from "@/components/ui/separator";
 import { useEffect, useState } from "react";
+import { Contest } from "@prisma/client";
+import Heading from "@/components/ui/heading";
 
 interface ContestsListProps{
     contests: Contest[]
@@ -21,8 +21,10 @@ const ContestsList : React.FC<ContestsListProps> = ({
     }
     return ( 
         <div className="flex flex-col gap-3">
-            <div className="font-bold">Upcoming Contests</div>
-            <Separator/>
+            <Heading
+                title="Upcoming Contests"
+                description="Top 10 recent upcoming contests"
+            />
             <div className="flex flex-col gap-y-1">
                 {contests ? contests.map((contest) => (
                     <div key={contest.url}>
@@ -35,4 +37,3 @@ const ContestsList : React.FC<ContestsListProps> = ({
 }
  
 export default ContestsList;
-*/

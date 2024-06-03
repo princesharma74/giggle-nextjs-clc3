@@ -8,7 +8,9 @@ const { auth } = NextAuth(authConfig);
 export default auth((req) => {
     const { nextUrl } = req; 
     const isLoggedIn = !!req.auth; 
-    const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
+    const isPublicRoute = publicRoutes.some(route => 
+        typeof route === 'string' ? route === nextUrl.pathname : route.test(nextUrl.pathname)
+    );
     const isOnlyLoggedOut = forLoggedOutUsers.includes(nextUrl.pathname);
     const isApiRoute = nextUrl.pathname.startsWith("/api");
     if(isApiRoute){

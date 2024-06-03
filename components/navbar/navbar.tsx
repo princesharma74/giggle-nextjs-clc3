@@ -4,9 +4,12 @@ import MainNav from "./main-nav";
 import { NavItem } from "@/types";
 import NavActions from "./nav-actions";
 import { siteConfig } from "@/config/site";
+import { auth } from "@/auth";
 
 const Navbar = async () => {
     const navItems : NavItem[]  = siteConfig["nav-options"]
+    const data = await auth()
+    const user = data?.user
     return ( 
         <div className="border-b">
             <Container>
@@ -14,8 +17,8 @@ const Navbar = async () => {
                     <Link href={"/"} className="ml-4 flex lg:ml-0 gap-x-2">
                         <p className="font-bold text-2xl">Codebuddy</p>
                     </Link>
-                    <MainNav data={navItems}/>
-                    <NavActions/>
+                    <MainNav data={navItems} user={user}/>
+                    <NavActions user={user}/>
                 </div>
             </Container>
         </div>

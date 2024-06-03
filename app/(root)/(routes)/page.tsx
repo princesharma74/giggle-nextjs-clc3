@@ -5,9 +5,13 @@ import RoomList from "@/components/rooms/room-list";
 import prismadb from "@/lib/prismadb";
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/ui/data-table";
-import { columns } from "./components/columns";
-import { UserColumn } from "./components/columns";
+import { UserColumn } from "@/components/table/columns";
 import axios from "axios";
+import { auth } from "@/auth";
+import Link from "next/link";
+import HeroSection from "../../../components/home/hero-section";
+import CodersTable from "@/components/table/coders";
+import { differenceInMinutes, format } from "date-fns";
 
 const headers = {
     'Content-Type': 'application/json',
@@ -15,6 +19,9 @@ const headers = {
 }
 
 const HomePage = async () => {
+
+    const data = await auth();
+    
     const rooms = await prismadb.room.findMany(
         {
             include: {
@@ -29,7 +36,7 @@ const HomePage = async () => {
   
     const endOfDay = new Date();
     endOfDay.setHours(23, 59, 59, 999);
-  
+
     const users = await prismadb.user.findMany({
         include: {
             codechef: true,
@@ -51,37 +58,46 @@ const HomePage = async () => {
 
     const formattedUsers : UserColumn[] = users.map(( user, index ) => ({
         rank: index+1,
-        name: user.first_name + " " + user.last_name,
+        username: user.username,
+        name: `${user.first_name} ${user.last_name ? user.last_name : ""}`,
+        leetcode_rating: user.leetcode?.rating,
+        codeforces_rating: user.codeforces?.rating,
+        codechef_rating: user.codechef?.rating,
         leetcodeId: user.leetcode?.leetcode_id,
         codeforcesId: user.codeforces?.codeforces_id,
         codechefId: user.codechef?.codechef_id,
         todays_submissions: user.submissions.length
     }))
 
+    // pick the first upcoming contest
+    const contest = await prismadb.contest.findFirst({
+        where: {
+            start_time: {
+                gte: new Date()
+            }
+        },
+        orderBy: {
+            start_time: 'asc'
+        }
+    })
+    const currentDate = new Date(); // Current date in the user's local time zone
+    const formattedDate = format(currentDate, 'yyyy-MM-dd HH:mm:ssXXX');
+    if(contest?.start_time){
+        const differenceInMins = differenceInMinutes(currentDate, contest?.start_time);
+        const hours = Math.floor(differenceInMins / 60);
+        const minutes = differenceInMins % 60;
+        console.log(`${hours} : ${minutes}`)
+    }
+
     return ( 
         <div className="my-4">
             <Container>
                 <div className="flex flex-col gap-4">
-                    <div className="flex flex-col items-center gap-4 py-16 mx-10">
-                        <div className="mx-4">
-                            <div className="font-extrabold text-3xl text-center">Ratings, Submission & Recent Contest Performance.</div>
-                            <div className="text-md text-center">Check the stats of codechef, codeforces and leetcode at once place</div>
-                        </div>
-                        <div className="flex gap-4">
-                            <Button className="rounded-full">View Your Profile</Button>
-                            <Button variant={"outline"} className="rounded-full">Upcoming Contests</Button>
-                        </div>
+                    <div>
+                        <HeroSection user={data && data.user} contest={contest}/>
                     </div>
-                    <div className="flex justify-between md:mx-8">
-                        <div className="hidden md:block w-48">
-                            {/* <TopicsView topics={topics} /> */}
-                        </div>
-                        <div className="px-6 overflow-auto">
-                            <DataTable searchKey="name" placeholder="Search your fellow coders" columns={columns} data={formattedUsers} />
-                        </div>
-                        <div className="hidden md:block w-48">
-                            {/* <ContestsList contests={contests} /> */}
-                        </div>
+                    <div className="px-6 overflow-auto">
+                        <CodersTable placeholder="Search your fellow coder" data={formattedUsers} />
                     </div>
                 </div>
             </Container>

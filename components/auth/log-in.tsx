@@ -1,45 +1,58 @@
-import { signIn } from "@/auth"
-import { CardContent } from "../ui/card"
-import { Button } from "../ui/button"
-import { DialogDescription, DialogHeader, DialogTitle } from "../ui/dialog"
- 
-export function LoginBox() {
+"use client";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { handleSignInGithub, handleSignInGoogle } from "@/components/auth/server-actions";
+import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
+import { cn } from "@/lib/utils";
+import { HTMLAttributes } from "react";
+
+interface LoginBoxProps extends HTMLAttributes<HTMLElement> {
+  className?: string;
+}
+
+export function LoginBox({
+  className,
+  ...props
+}: LoginBoxProps) {
   return (
-    <>
-    <DialogHeader>
-      <DialogTitle className="text-2xl text-center">Login</DialogTitle>
-      <DialogDescription className="text-center">
-        Sign in with Github to login or sign up
-      </DialogDescription>
-    </DialogHeader>
-    <CardContent>
-      <div className="flex flex-col gap-2">
-          <div>
-            <form
-              action={async () => {
-                "use server"
-                await signIn("github")
-              }}
-            >
-              <Button variant="outline" className="w-full" type="submit">
-                Continue with Github
-              </Button>
-            </form>
-          </div>
-        <div>
-          <form
-            action={async () => {
-              "use server"
-              await signIn("google")
-            }}
-          >
-              <Button variant="outline" className="w-full" type="submit">
-                Continue with Google
-              </Button>
-          </form>
-      </div>
-    </div>
-    </CardContent>
-    </>
-  )
-} 
+    <Dialog>
+      <DialogTrigger className={cn(className)}>
+        Login
+      </DialogTrigger>
+      <DialogContent>
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-2xl text-center">Login</CardTitle>
+            <CardDescription className="text-center">
+              Sign in with Github to login or sign up
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="flex flex-col gap-2">
+              <div>
+                <form
+                  action={handleSignInGithub}
+                  method="post"
+                >
+                  <Button variant="outline" className="w-full" type="submit">
+                    Continue with Github
+                  </Button>
+                </form>
+              </div>
+              <div>
+                <form
+                  action={handleSignInGoogle}
+                  method="post"
+                >
+                  <Button variant="outline" className="w-full" type="submit">
+                    Continue with Google
+                  </Button>
+                </form>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </DialogContent>
+    </Dialog>
+  );
+}

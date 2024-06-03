@@ -1,9 +1,9 @@
-/*
 import Link from "next/link";
-import { Separator } from "../ui/separator";
-import TimeAgo from "../ui/time-ago";
-import { Contest } from "@/types";
-import { Badge } from "../ui/badge";
+import { Separator } from "@/components/ui/separator";
+import TimeAgo from "@/components/ui/time-ago";
+import { Badge } from "@/components/ui/badge";
+import { Contest } from "@prisma/client";
+import { format } from "date-fns";
 
 interface ContestCardProps{
     contest: Contest
@@ -15,10 +15,10 @@ const ContestCard : React.FC<ContestCardProps> = ({
     return ( 
         <div className=" flex items-center space-x-4 rounded-md border p-4">
             <div className="flex-1 space-y-1">
-                <Link href={contest.url}><p className="font-medium leading-none">{contest.title}</p></Link>
+                <Link href={contest.url ? contest.url : "#"}><p className="font-medium leading-none">{contest.title}</p></Link>
                 <div className="flex justify-between">
                     <div className="text-sm">
-                        <TimeAgo data={contest.start_time}/>
+                        {contest.start_time ? format(contest.start_time, 'MMMM do, yyyy hh:mm a') : ""}
                     </div>
                     <div className="text-sm text-muted-foreground text-right">
                         <Badge variant={"outline"}>{contest.platform}</Badge>
@@ -30,4 +30,3 @@ const ContestCard : React.FC<ContestCardProps> = ({
 }
  
 export default ContestCard;
-*/

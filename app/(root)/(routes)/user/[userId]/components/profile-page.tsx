@@ -8,21 +8,38 @@ import RatingChangeListView from "./rating_change_list";
 import profileImage from "@/public/avatar.svg";
 import { RatingChange } from "@/types";
 import { User } from "@/types";
-import { useParams } from "next/navigation";
+import { User as SessionUser } from "next-auth";
+import { useRouter } from "next/navigation";
 import { SubmissionColumn, columns } from "./columns";
 import { DataTable } from "@/components/ui/data-table";
+import axios from "axios";
+import { toast } from "@/components/ui/use-toast"
+import { auth } from "@/auth";
+import { set } from "date-fns";
+import { Loader2 } from "lucide-react";
+
+const headers = {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${process.env.API_TOKEN}`
+}
 
 interface ProfilePageProps {
+    loggedInUser: SessionUser | undefined
     user: User | null
     submissions: SubmissionColumn[]
+    isFollowing: boolean
 }
 
 const ProfilePage : React.FC<ProfilePageProps> = ({
+    loggedInUser,
     user,
+    isFollowing,
     submissions
 }) => {
     const [isMounted, setIsMounted] = useState(false);
-    const params = useParams();
+    const [loading, setLoading] = useState(false);
+    const [followed, setFollowed] = useState(isFollowing);
+    const router = useRouter();
     useEffect(()=>{
         setIsMounted(true);
     }, []);
@@ -33,8 +50,34 @@ const ProfilePage : React.FC<ProfilePageProps> = ({
         return <NoResults message="No user data available."/>
     }
 
-    const onFollow = () => {
-        console.log("Follow");
+    const onFollow = async () => {
+        setLoading(true);
+        if(!loggedInUser){
+            toast({
+                title: "Please login to follow the user"
+            });
+            setLoading(false);
+            return;
+        }
+        try{
+            const response = await axios.post("/api/follow", {
+                userId: loggedInUser.username,
+                followId: user.username
+            }, {
+                headers
+            });
+            setFollowed(!followed);
+            toast({
+                title: response.data.message
+            });
+        }
+        catch(err: any){
+            toast({
+                title: "Failed to follow the user",
+                description: err.message
+            });
+        }
+        setLoading(false);
     }
 
 
@@ -54,9 +97,30 @@ const ProfilePage : React.FC<ProfilePageProps> = ({
                     <div className="text-2xl font-semibold text-center">{user.first_name} {user.last_name}</div>
                     <div className="text-sm text-gray-500 text-center">@{user.username}</div>
                 </div>
-                <Button variant={"outline"} className="rounded-full"
-                    onClick={()=>{console.log("Follow")}}
-                >Follow</Button>
+                {
+                    loggedInUser &&
+                    (
+                        loggedInUser.username === user.username ? (
+                            <Button variant={"outline"} className="rounded-full" onClick={()=>{
+                                setLoading(true)
+                                router.push("/edit-profile")
+                                setLoading(false)
+                            }}>Edit Profile</Button>
+                        ) :
+                        (
+                            <Button
+                                className="rounded-full"
+                                variant={"outline"}
+                                onClick={onFollow}
+                                disabled={loading}
+                            >
+                                {loading && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
+                                {loading ? "Processing..." : (followed ? "Unfollow" : "Follow")}
+                            </Button>
+                        )
+
+                    )
+                }
             </div>
             <div className="flex flex-col gap-2 md:w-3/4">
                 <div>

@@ -5,7 +5,10 @@
  */
 
 export const publicRoutes = [
-    '/'
+    '/',
+    /^\/user\/.*/,
+    '/contests',
+    '/report'
 ];
 
 /**

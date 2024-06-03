@@ -15,19 +15,19 @@ export const siteConfig = {
             "href" : "/"
         }, 
         {
-            "label" : "Contests", 
-            "active" : false,
-            "href" : "/contests"
-        },
-        {
             "label" : "Friends", 
             "active" : false,
             "href" : "/friends"
         },
         {
-            "label" : "Leaderboard", 
+            "label" : "Upcoming Contests", 
             "active" : false,
-            "href" : "/leaderboard"
+            "href" : "/contests"
+        },
+        {
+            "label" : "Report an Issue", 
+            "active" : false,
+            "href" : "/report"
         }
     ]
 }
