@@ -72,7 +72,7 @@ export const VerifyModal: React.FC<VerifyModalProps> = ({
                 <DialogHeader>
                     <DialogTitle>{title}</DialogTitle>
                     <DialogDescription>
-                        Please verify your {platform} ID by entering the following at place of your {getPlace(platform, user)} in the {platform} profile settings.
+                        Please verify your {platform} ID by entering the following at place of your {getPlace(platform, user)} in the {platform} profile settings. You can always revert it back after verification.
                         <br/>
                         <br/>
                         <a target="_blank" href={getLocation(platform, user)}>Click here: <u>{getLocation(platform, user)}</u></a>

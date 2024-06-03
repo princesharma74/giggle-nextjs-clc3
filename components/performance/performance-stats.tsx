@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getBadge } from "../../app/(root)/(routes)/user/[userId]/components/rank-label";
 import { Badge } from "../ui/badge";
 import { Codeforces, Leetcode, Codechef } from "@prisma/client";
+import { BadgeCheck } from "lucide-react";
 interface RatingProps {
     leetcode: Leetcode | null;
     codeforces: Codeforces | null;
@@ -15,8 +16,13 @@ const PerformanceStats : React.FC<RatingProps> = ({
             <div className="grid grid-cols-1 gap-2">
             <div className="grid grid-cols-3 gap-1 md:gap-4 justify-center items-center w-full">
                 <Link href={`https://www.leetcode.com/${leetcode?.leetcode_id}` ?? "#"} className="border p-5 rounded-md flex flex-col items-center">
-                    <div className="text font-medium text-center">
-                        Leetcode
+                    <div className="flex gap-1 text font-medium items-center">
+                        <div>
+                            Leetcode
+                        </div>
+                        <div>
+                            {leetcode?.verified && <BadgeCheck size={15} color="green"/>}
+                        </div>
                     </div>
                     <div className="text-2xl font-bold">
                         {leetcode?.rating ? leetcode?.rating : "N/A"}
@@ -29,8 +35,13 @@ const PerformanceStats : React.FC<RatingProps> = ({
                     </div>
                 </Link>
                 <Link href={`https://codeforces.com/profile/${codeforces?.codeforces_id}` ?? "#"} className="border p-5 rounded-md flex flex-col items-center">
-                    <div className="text font-medium text-center">
-                        Codeforces
+                    <div className="flex gap-1 text font-medium items-center">
+                        <div>
+                            Codeforces
+                        </div>
+                        <div>
+                            {codeforces?.verified && <BadgeCheck size={15} color="green"/>}
+                        </div>
                     </div>
                     <div className="text-2xl font-bold">
                         {codeforces?.rating ? codeforces?.rating : "N/A"}
@@ -43,8 +54,13 @@ const PerformanceStats : React.FC<RatingProps> = ({
                     </div>
                 </Link>
                 <Link href={`https://www.codechef.com/users/${codechef?.codechef_id}` ?? "#"} className="border p-5 rounded-md flex flex-col items-center">
-                    <div className="text font-medium text-center">
-                        Codechef
+                    <div className="flex gap-1 text font-medium items-center">
+                        <div>
+                            Codechef
+                        </div>
+                        <div>
+                            {codechef?.verified && <BadgeCheck size={15} color="green"/>}
+                        </div>
                     </div>
                     <div className="text-2xl font-bold">
                         {codechef?.rating ? codechef?.rating : "N/A"}
