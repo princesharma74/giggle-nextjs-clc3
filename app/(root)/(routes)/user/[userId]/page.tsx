@@ -8,6 +8,7 @@ import { formatDistanceToNow } from "date-fns";
 import { SubmissionColumn, columns } from "./components/columns";
 import { DataTable } from "@/components/ui/data-table";
 import { auth } from "@/auth";
+import Section from "@/components/ui/section";
 
 async function isFollowing(followedByUsername: string, followingUsername: string) {
     const followedByUser = await prismadb.user.findUnique({
@@ -75,13 +76,9 @@ const UserProfile = async ({ params } : { params: { userId: string }}
     }))
 
     return ( 
-        <div className="my-4">
-            <Container>
-                    <div className="mx-2">
-                        <ProfilePage isFollowing={followed} loggedInUser={loggedInUser} user={user} submissions={formattedSubmissions}/>
-                    </div>
-            </Container>
-        </div>
+        <Section>
+            <ProfilePage isFollowing={followed} loggedInUser={loggedInUser} user={user} submissions={formattedSubmissions}/>
+        </Section>
      );
 }
  

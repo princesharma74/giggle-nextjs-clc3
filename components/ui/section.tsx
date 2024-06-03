@@ -8,7 +8,7 @@ const Section : React.FC<ContainerProps> = ({
     children
 }) => {
     return ( 
-        <div className="mx-auto max-w-5xl my-4">
+        <div className="mx-4 md:mx-auto max-w-5xl my-4">
             {children}
         </div>
      );

@@ -1,30 +1,31 @@
 "use client"
 import { ModeToggle } from "../mode-toggle"
-import { auth } from "@/auth"
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
-import { LoginBox } from "../auth/log-in"
 import { Button } from "@/components/ui/button"
 import LoggedInComponent from "@/components/auth/logged-in"
 import { useLoginModal } from "@/hooks/use-login-modal"
 import { User } from "next-auth"
-import { AlignJustify, X } from "lucide-react"
-import { useState } from "react"
+import { MobileNav } from "./mobile-nav"
+import { NavItem } from "@/types"
+import { usePathname } from "next/navigation"
 
 interface NavActionsProps{
     user: User | undefined;
+    data: NavItem[]
 }
 
 const NavActions: React.FC<NavActionsProps> = ({
-    user
+    user,
+    data
 }) => {
     const loginModalState = useLoginModal()
-    const [mobileNavState, setMobileNavState] = useState(true)
     const isLoggedIn = !!user
     return ( 
         <div className="ml-auto flex items-center gap-x-4">
             {
                 isLoggedIn ? 
+                <div className="hidden md:block">
                 <LoggedInComponent user={user}/>
+                </div>
                 : 
                 <Button variant={"outline"} className="border-none text-md"
                     onClick={()=>{
@@ -35,13 +36,7 @@ const NavActions: React.FC<NavActionsProps> = ({
                 </Button>
             }
             <ModeToggle/>
-            <div className="block md:hidden"
-                onClick={()=>{
-                    setMobileNavState(!mobileNavState)
-                }}
-            >
-                {mobileNavState ? <AlignJustify/> : <X/>}
-            </div>
+            <MobileNav user={user} data={data}/>
         </div>
      );
 }

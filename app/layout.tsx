@@ -9,8 +9,8 @@ import { SessionProvider } from "next-auth/react";
 const font = Urbanist({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Codebuddy - Your coding companion",
-  description: "You are no longer a lonely coder. Let's improve together.",
+  title: "CLC3 - Codeforces, Leetcode & Codechef",
+  description: "Combine your codeforces, leetcode and codechef profiles to get a combined rating and performance.",
 };
 
 export default function RootLayout({

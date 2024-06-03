@@ -122,17 +122,15 @@ const ProfilePage : React.FC<ProfilePageProps> = ({
                     )
                 }
             </div>
-            <div className="flex flex-col gap-2 md:w-3/4">
+            <div className="flex flex-col gap-2">
                 <div>
                     <PerformanceStats leetcode={user.leetcode} codeforces={user.codeforces} codechef={user.codechef}/>
                 </div>
                 <div>
                     <RatingChangeListView user_email={user?.email}/>
                 </div>
-                <div>
-                    <DataTable searchKey="problem_name" columns={columns} data={submissions}/>
-                </div>
             </div>
+            <DataTable searchKey="problem_name" columns={columns} data={submissions}/>
         </div>
     );
 }

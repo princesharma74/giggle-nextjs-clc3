@@ -25,10 +25,15 @@ export const siteConfig = {
             "href" : "/contests"
         },
         {
-            "label" : "Report an Issue", 
+            "label" : "Settings", 
             "active" : false,
-            "href" : "/report"
-        }
+            "href" : "/edit-profile"
+        },
+        // {
+        //     "label" : "Report an Issue", 
+        //     "active" : false,
+        //     "href" : "/report"
+        // }
     ]
 }
 
