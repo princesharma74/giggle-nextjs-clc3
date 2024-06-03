@@ -5,11 +5,6 @@ import { NextResponse } from "next/server";
 
 const { auth } = NextAuth(authConfig);
 
-const headers = {
-    'Content-Type': 'application/json',
-    "Authorization": `Bearer ${process.env.API_TOKEN}`
-}
-
 
 export default auth(async (req) => {
     const { nextUrl } = req; 
