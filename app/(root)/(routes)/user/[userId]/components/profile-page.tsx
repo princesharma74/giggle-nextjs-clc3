@@ -17,6 +17,7 @@ import { toast } from "@/components/ui/use-toast"
 import { auth } from "@/auth";
 import { set } from "date-fns";
 import { Loader2 } from "lucide-react";
+import TimeAgo from "@/components/ui/time-ago";
 
 const headers = {
     'Content-Type': 'application/json',
@@ -96,6 +97,7 @@ const ProfilePage : React.FC<ProfilePageProps> = ({
                 <div className="flex flex-col">
                     <div className="text-2xl font-semibold text-center">{user.first_name} {user.last_name}</div>
                     <div className="text-sm text-gray-500 text-center">@{user.username}</div>
+                    <div className="text-xs text-gray-400 text-center">{user.lastUpdatedAt && `Updated `} {user.lastUpdatedAt && (<TimeAgo data={user.lastUpdatedAt}/>)}</div>
                 </div>
                 <div className="flex gap-2">
                     <div>

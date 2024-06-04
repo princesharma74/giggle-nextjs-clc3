@@ -59,7 +59,11 @@ export async function PATCH(
   const body = await req.json();
 
   // Extract fields from the request body
-  const { codeforces, codechef, leetcode, ...userData } = body;
+  const { ...userData } = body;
+  const codeforces = body.codeforces || {};
+  const codechef = body.codechef || {};
+  const leetcode = body.leetcode || {};
+
   const validUserData = Object.keys(userData)
   .filter(key => validKeys.includes(key))
   .reduce((obj, key) => {
@@ -110,7 +114,7 @@ export async function PATCH(
       },
       data: {
         ...validUserData,
-        codeforces: codeforces && {
+        codeforces: {
           upsert: {
             where: { user_email: emailId },
             create: {
@@ -121,7 +125,7 @@ export async function PATCH(
             },
           },
         },
-        codechef: codechef && {
+        codechef: {
           upsert: {
             where: { user_email: emailId },
             create: {
@@ -132,7 +136,7 @@ export async function PATCH(
             },
           },
         },
-        leetcode: leetcode && {
+        leetcode: {
           upsert: {
             where: { user_email: emailId },
             create: {
