@@ -41,7 +41,7 @@ export function MobileNav({
 
 
   const onChange = (open: boolean) =>{
-      if(!mobileNavState.isOpen){
+      if(!open){
           mobileNavState.onClose()
       }
   };

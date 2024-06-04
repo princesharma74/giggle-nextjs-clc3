@@ -73,14 +73,6 @@ const HomePage = async () => {
             start_time: 'asc'
         }
     })
-    const currentDate = new Date(); // Current date in the user's local time zone
-    const formattedDate = format(currentDate, 'yyyy-MM-dd HH:mm:ssXXX');
-    if(contest?.start_time){
-        const differenceInMins = differenceInMinutes(currentDate, contest?.start_time);
-        const hours = Math.floor(differenceInMins / 60);
-        const minutes = differenceInMins % 60;
-        console.log(`${hours} : ${minutes}`)
-    }
 
     return ( 
         <div className="my-4">
