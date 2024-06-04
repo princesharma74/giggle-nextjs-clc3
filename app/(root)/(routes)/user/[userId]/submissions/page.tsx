@@ -5,35 +5,15 @@ import NoResults from "@/components/ui/no-result";
 // import ContestsList from "@/components/contests/contests-list";
 import prismadb from "@/lib/prismadb";
 import { formatDistanceToNow } from "date-fns";
-import { SubmissionColumn, columns } from "./submissions/columns";
+import { SubmissionColumn, columns } from "./columns";
 import { DataTable } from "@/components/ui/data-table";
-import { auth } from "@/auth";
 import Section from "@/components/ui/section";
+import Heading from "@/components/ui/heading";
 
-async function isFollowing(followedByUsername: string, followingUsername: string) {
-    const followedByUser = await prismadb.user.findUnique({
-      where: {
-        username: followedByUsername,
-      },
-      include: {
-        following: true,
-      },
-    });
-  
-    if (!followedByUser) {
-      throw new Error(`User with username ${followedByUsername} does not exist`);
-    }
-  
-    const isFollowing = followedByUser.following.some(user => user.username === followingUsername);
-  
-    return isFollowing;
-  }
 
 const UserProfile = async ({ params } : { params: { userId: string }}
 ) => {
 
-    const data = await auth();
-    const loggedInUser = data?.user;
     const user = await prismadb.user.findUnique({
         where: {
             username: params.userId
@@ -44,9 +24,9 @@ const UserProfile = async ({ params } : { params: { userId: string }}
             codechef: true
         }
     });
-    
-    if (!user) {
-        return( <NoResults message={"No user found"}/>)
+
+    if(!user){
+        return <NoResults message="No user found" />
     }
 
     const submissions = await prismadb.submission.findMany({
@@ -61,11 +41,6 @@ const UserProfile = async ({ params } : { params: { userId: string }}
         },
     });
 
-    
-    var followed = false;
-    if(loggedInUser?.username){
-        followed = await isFollowing(loggedInUser?.username, user.username);
-    }
 
     const formattedSubmissions : SubmissionColumn[] = submissions.map((item) => ({
         submission_id: item.submission_id,
@@ -77,7 +52,8 @@ const UserProfile = async ({ params } : { params: { userId: string }}
 
     return ( 
         <Section>
-            <ProfilePage isFollowing={followed} loggedInUser={loggedInUser} user={user} submissions={formattedSubmissions}/>
+            <Heading title={`Submissions by ${user.first_name}`} description="You may click on each problem or submission to view"/>
+            <DataTable searchKey="problem_name" columns={columns} data={formattedSubmissions} />
         </Section>
      );
 }

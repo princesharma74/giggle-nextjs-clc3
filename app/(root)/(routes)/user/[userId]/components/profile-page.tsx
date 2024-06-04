@@ -10,14 +10,13 @@ import { RatingChange } from "@/types";
 import { User } from "@/types";
 import { User as SessionUser } from "next-auth";
 import { useRouter } from "next/navigation";
-import { SubmissionColumn, columns } from "./columns";
+import { SubmissionColumn, columns } from "../submissions/columns";
 import { DataTable } from "@/components/ui/data-table";
 import axios from "axios";
 import { toast } from "@/components/ui/use-toast"
 import { auth } from "@/auth";
 import { set } from "date-fns";
 import { Loader2 } from "lucide-react";
-import SubmissionsButton from "./submissions";
 
 const headers = {
     'Content-Type': 'application/json',
@@ -126,7 +125,12 @@ const ProfilePage : React.FC<ProfilePageProps> = ({
                         }
                     </div>
                     <div>
-                        <SubmissionsButton submissions={submissions}/>
+                        <Button variant={"outline"}
+                            onClick={()=>{
+                                router.push(`/user/${user.username}/submissions`)
+                            }}
+                            className="rounded-full"
+                        >View Submissions</Button>
                     </div>
                 </div>
             </div>
