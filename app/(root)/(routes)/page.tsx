@@ -89,7 +89,7 @@ const HomePage = async () => {
                     <div>
                         <HeroSection user={data && data.user} contest={contest}/>
                     </div>
-                    <div className="px-6 overflow-auto">
+                    <div className="px-2 overflow-auto">
                         <CodersTable placeholder="Search your fellow coder" data={formattedUsers} />
                     </div>
                 </div>

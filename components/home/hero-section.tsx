@@ -36,7 +36,7 @@ const HeroSection : React.FC<HeroSectionProps> = ({
                 </Badge>
             </div>
                 <div className="font-extrabold text-3xl text-center">Ratings, Submissions & Recent Contests Performance.</div>
-                <div className="text-md text-center">Check the stats of codeforces, leetcode and codechef (CLC3) all at once place</div>
+                <div className="text-md text-center">Check the stats of Codeforces, Leetcode and Codechef (CLC3) all at once place</div>
             </div>
             <div className="flex gap-2">
                 {

@@ -3,7 +3,7 @@ import NoResults from "@/components/ui/no-result";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import PerformanceStats from "@/components/performance/performance-stats";
+import PerformanceStats from "./performance-stats";
 import RatingChangeListView from "./rating_change_list";
 import profileImage from "@/public/avatar.svg";
 import { RatingChange } from "@/types";
@@ -17,6 +17,7 @@ import { toast } from "@/components/ui/use-toast"
 import { auth } from "@/auth";
 import { set } from "date-fns";
 import { Loader2 } from "lucide-react";
+import SubmissionsButton from "./submissions";
 
 const headers = {
     'Content-Type': 'application/json',
@@ -97,30 +98,37 @@ const ProfilePage : React.FC<ProfilePageProps> = ({
                     <div className="text-2xl font-semibold text-center">{user.first_name} {user.last_name}</div>
                     <div className="text-sm text-gray-500 text-center">@{user.username}</div>
                 </div>
-                {
-                    loggedInUser &&
-                    (
-                        loggedInUser.username === user.username ? (
-                            <Button variant={"outline"} className="rounded-full" onClick={()=>{
-                                setLoading(true)
-                                router.push("/edit-profile")
-                                setLoading(false)
-                            }}>Edit Profile</Button>
-                        ) :
-                        (
-                            <Button
-                                className="rounded-full"
-                                variant={"outline"}
-                                onClick={onFollow}
-                                disabled={loading}
-                            >
-                                {loading && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
-                                {loading ? "Processing..." : (followed ? "Unfollow" : "Follow")}
-                            </Button>
-                        )
+                <div className="flex gap-2">
+                    <div>
+                        {
+                            loggedInUser &&
+                            (
+                                loggedInUser.username === user.username ? (
+                                    <Button variant={"outline"} className="rounded-full" onClick={()=>{
+                                        setLoading(true)
+                                        router.push("/edit-profile")
+                                        setLoading(false)
+                                    }}>Edit Profile</Button>
+                                ) :
+                                (
+                                    <Button
+                                        className="rounded-full"
+                                        variant={"outline"}
+                                        onClick={onFollow}
+                                        disabled={loading}
+                                    >
+                                        {loading && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
+                                        {loading ? "Processing..." : (followed ? "Unfollow" : "Follow")}
+                                    </Button>
+                                )
 
-                    )
-                }
+                            )
+                        }
+                    </div>
+                    <div>
+                        <SubmissionsButton submissions={submissions}/>
+                    </div>
+                </div>
             </div>
             <div className="flex flex-col gap-2">
                 <div>
@@ -130,7 +138,6 @@ const ProfilePage : React.FC<ProfilePageProps> = ({
                     <RatingChangeListView user_email={user?.email}/>
                 </div>
             </div>
-            <DataTable searchKey="problem_name" columns={columns} data={submissions}/>
         </div>
     );
 }

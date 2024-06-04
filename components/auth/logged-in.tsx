@@ -7,6 +7,7 @@ import avatar from "@/public/avatar.svg"
 import Link from "next/link";
 import { handleSignOut } from "@/components/auth/server-actions";
 import { User } from "next-auth";
+import { useMobileNavState } from "@/hooks/use-mobile-nav";
 
 interface LoggedInComponentProps {
   user: User | null
@@ -15,6 +16,7 @@ interface LoggedInComponentProps {
 export const LoggedInComponent : React.FC<LoggedInComponentProps> = ({
   user
 }) => {
+  const mobileNavState = useMobileNavState();
     return ( 
         <DropdownMenu>
         <DropdownMenuTrigger asChild>
@@ -33,13 +35,23 @@ export const LoggedInComponent : React.FC<LoggedInComponentProps> = ({
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <Link href={`/user/${user?.username}`}>
+          <Link href={`/user/${user?.username}`}
+            onClick={
+              ()=>{
+                mobileNavState.onClose()
+              }
+            } 
+          >
             <DropdownMenuLabel>
               My Profile
             </DropdownMenuLabel>
           </Link>
           <DropdownMenuSeparator />
-          <Link href="/edit-profile" >
+          <Link href="/edit-profile" 
+            onClick={()=>{
+              mobileNavState.onClose()
+            }}
+          >
             <DropdownMenuItem className="cursor-pointer">
               Settings
             </DropdownMenuItem>
@@ -49,7 +61,11 @@ export const LoggedInComponent : React.FC<LoggedInComponentProps> = ({
               action={handleSignOut}
             >
               <button type="submit" className="w-full cursor-pointer">
-                <DropdownMenuItem className="cursor-pointer">
+                <DropdownMenuItem className="cursor-pointer" onClick={
+                  ()=>{
+                    mobileNavState.onClose()
+                  }
+                }>
                         Logout
                 </DropdownMenuItem>
               </button>

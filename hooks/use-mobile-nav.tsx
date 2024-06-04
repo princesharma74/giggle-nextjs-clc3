@@ -1,12 +1,10 @@
 import { create } from "zustand";
-
-interface LoginModalState {
+interface MobileNavState {
     isOpen: boolean;
     onOpen: () => void;
     onClose: () => void;
 }
-
-export const useLoginModal = create<LoginModalState>((set) => ({
+export const useMobileNavState = create<MobileNavState>((set) => ({
     isOpen: false,
     onOpen: () => set({ isOpen: true }),
     onClose: () => set({ isOpen: false }),

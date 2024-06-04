@@ -20,6 +20,8 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useState } from "react"
 import LoggedInComponent from "../auth/logged-in"
+import { useMobileNavState } from "@/hooks/use-mobile-nav"
+import { on } from "events"
 
 interface MobileNavProps {
   user: User | undefined;
@@ -35,20 +37,20 @@ export function MobileNav({
   const isLoggedIn = !!user
   const pathname = usePathname();
   const routes = data.map(item => item.href === pathname ? { ...item, active: true} : item)
+  const mobileNavState = useMobileNavState();
 
-  const [isOpen, setIsOpen] = useState(false);
 
   const onChange = (open: boolean) =>{
-      if(!open){
-          setIsOpen(false);
+      if(!mobileNavState.isOpen){
+          mobileNavState.onClose()
       }
   };
 
   return (
     <div className="block md:hidden">
-      <Sheet open={isOpen} onOpenChange={onChange}>
+      <Sheet open={mobileNavState.isOpen} onOpenChange={onChange}>
         <Button variant="outline" className="border-none"
-          onClick={()=>{setIsOpen(true)}}
+          onClick={()=>{mobileNavState.onOpen()}}
         ><AlignJustify/></Button>
         <SheetContent>
             <SheetHeader>
@@ -80,7 +82,7 @@ export function MobileNav({
                             route.active ? "font-semibold" : "text-neutral-500"
                         )}
                         onClick={()=>{
-                          setIsOpen(false);
+                          mobileNavState.onClose()
                         }}
                     >
                         {route.label}

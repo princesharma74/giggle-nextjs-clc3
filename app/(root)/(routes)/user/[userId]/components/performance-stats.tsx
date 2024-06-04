@@ -1,8 +1,9 @@
 import Link from "next/link";
-import { getBadge } from "../../app/(root)/(routes)/user/[userId]/components/rank-label";
-import { Badge } from "../ui/badge";
+import { getBadge } from "./rank-label";
+import { Badge } from "@/components/ui/badge";
 import { Codeforces, Leetcode, Codechef } from "@prisma/client";
 import { BadgeCheck } from "lucide-react";
+
 interface RatingProps {
     leetcode: Leetcode | null;
     codeforces: Codeforces | null;
