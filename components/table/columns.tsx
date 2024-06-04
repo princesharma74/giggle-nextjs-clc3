@@ -21,6 +21,7 @@ export const columns: ColumnDef<UserColumn>[] = [
     {
         header: 'Name',
         accessorKey: 'name',
+        sortUndefined: 'last',
         cell: ({ row }) => (
             <Link href={`/user/${row.original.username}`}>
                 <TooltipView buttonLabel={row.original.name} tooltipContent={"Click to view profile"} />
@@ -30,6 +31,7 @@ export const columns: ColumnDef<UserColumn>[] = [
     {
         header: 'Leetcode Rating',
         accessorKey: 'leetcode_rating',
+        sortUndefined: 'last',
         cell: ({ row }) => (
             <Link href={`https://leetcode.com/${row.original.leetcodeId}`}>
                 <TooltipView buttonLabel={row.original.leetcode_rating ? row.original.leetcode_rating.toString() : "-"} tooltipContent={"Click to view the leetcode profile"} />
@@ -39,6 +41,7 @@ export const columns: ColumnDef<UserColumn>[] = [
     {
         header: 'Codeforces Rating',
         accessorKey: 'codeforces_rating',
+        sortUndefined: 'last',
         cell: ({ row }) => (
             <Link href={`https://codeforces.com/profile/${row.original.codeforcesId}`}>
                 <TooltipView buttonLabel={row.original.codeforces_rating ? row.original.codeforces_rating.toString() : "-"} tooltipContent={"Click to view the codeforces profile"} />
@@ -48,6 +51,7 @@ export const columns: ColumnDef<UserColumn>[] = [
     {
         header: 'Codechef Rating',
         accessorKey: 'codechef_rating',
+        sortUndefined: 'last',
         cell: ({ row }) => (
             <Link href={`https://codechef.com/users/${row.original.codechefId}`}>
                 <TooltipView buttonLabel={row.original.codechef_rating ? row.original.codechef_rating.toString() : "-"} tooltipContent={"Click to view the codechef profile"} />

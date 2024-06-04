@@ -19,7 +19,8 @@ const validKeys = [
   'leetcode',
   'room',
   'messages',
-  'rating_change'
+  'rating_change',
+  'lastUpdatedAt'
 ];
 
 const validCodeforcesKeys = [
