@@ -27,28 +27,43 @@ import { Badge } from "@/components/ui/badge"
 import Heading from "@/components/ui/heading";
 const { v4 } = require('uuid');
 
-const basicUserSchema = z
-  .object({
-    first_name: z.string().min(2).max(50).optional(),
-    last_name: z.string().optional(),
-    bio: z.string().optional(),
-    gender: z.nativeEnum(Gender).optional(),
-    avatar: z.string().optional(),
-    username: z.string().min(2).max(50),
-    email: z.string().email(),
-    codeforces: z.object({
-      codeforces_id: z.string().optional(),
-      verified: z.boolean().default(false)
-    }).optional(),
-    codechef: z.object({
-      codechef_id: z.string().optional(),
-      verified: z.boolean().default(false)
-    }).optional(),
-    leetcode: z.object({
-      leetcode_id: z.string().optional(),
-      verified: z.boolean().default(false)
-    }).optional()
-  })
+const usernameRegex = /^[a-zA-Z0-9_.-]+$/;
+const idRegex = /^[a-zA-Z0-9_-]+$/;
+
+const basicUserSchema = z.object({
+  first_name: z.string().min(2).max(50).optional(),
+  last_name: z.string().optional(),
+  bio: z.string().optional(),
+  gender: z.nativeEnum(Gender).optional(),
+  avatar: z.string().optional(),
+  username: z
+    .string()
+    .min(2)
+    .max(50)
+    .regex(usernameRegex, "Username can only contain letters, numbers, underscores, periods, and hyphens."),
+  email: z.string().email(),
+  codeforces: z.object({
+    codeforces_id: z
+      .string()
+      .regex(idRegex, "Codeforces ID can only contain letters, numbers, underscores, and hyphens.")
+      .optional(),
+    verified: z.boolean().default(false),
+  }).optional(),
+  codechef: z.object({
+    codechef_id: z
+      .string()
+      .regex(idRegex, "Codechef ID can only contain letters, numbers, underscores, and hyphens.")
+      .optional(),
+    verified: z.boolean().default(false),
+  }).optional(),
+  leetcode: z.object({
+    leetcode_id: z
+      .string()
+      .regex(idRegex, "Leetcode ID can only contain letters, numbers, underscores, and hyphens.")
+      .optional(),
+    verified: z.boolean().default(false),
+  }).optional()
+});
 
 type BasicUser = z.infer<typeof basicUserSchema>
 
