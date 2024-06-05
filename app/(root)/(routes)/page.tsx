@@ -14,16 +14,6 @@ const headers = {
 const HomePage = async () => {
 
     const data = await auth();
-    const take = 30;
-    const rooms = await prismadb.room.findMany(
-        {
-            include: {
-                topics: true,
-                participants: true
-            },
-            take
-        }, 
-    )
     
     const startOfDay = new Date();
     startOfDay.setHours(0, 0, 0, 0);
@@ -82,7 +72,6 @@ const HomePage = async () => {
                     <div>
                         <HeroSection user={data && data.user} contest={contest}/>
                     </div>
-                    <div className="text-center">Top 30 performers of the day</div>
                     <div className="px-2 overflow-auto">
                         <CodersTable placeholder="Search your fellow coder" data={formattedUsers} />
                     </div>
