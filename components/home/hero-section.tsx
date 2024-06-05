@@ -32,7 +32,7 @@ const HeroSection : React.FC<HeroSectionProps> = ({
                 <Badge variant={"outline"} className="text-center cursor-pointer" onClick={()=>{
                     router.push(`${contest?.url}`)
                 }}>
-                {`Upcoming Contest ${ contest?.title && contest?.title.length > 25 ? contest.title.slice(0, 25) + '...' : contest?.title} ${contest?.start_time ? formatDistanceToNow(contest.start_time, {addSuffix: true}) : ""}`}
+                {`Upcoming Contest ${contest?.title} ${contest?.start_time ? formatDistanceToNow(contest.start_time, {addSuffix: true}) : ""}`}
                 </Badge>
             </div>
                 <div className="font-extrabold text-3xl text-center">Ratings, Submissions & Recent Contests Performance.</div>

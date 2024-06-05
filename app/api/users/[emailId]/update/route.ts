@@ -74,7 +74,7 @@ export async function PATCH(
   }, {});
 
   // Extract fields from the codeforces object
-  const validCodeforces = Object.keys(codeforces)
+  var validCodeforces = Object.keys(codeforces)
   .filter(key => validCodeforcesKeys.includes(key))
   .reduce((obj, key) => {
     return {
@@ -84,7 +84,7 @@ export async function PATCH(
   }, {});
 
   // Extract fields from the codechef object
-  const validCodechef = Object.keys(codechef)
+  var validCodechef = Object.keys(codechef)
   .filter(key => validCodechefKeys.includes(key))
   .reduce((obj, key) => {
     return {
@@ -93,7 +93,7 @@ export async function PATCH(
     };
   }, {});
 
-  const validLeetcode = Object.keys(leetcode)
+  var validLeetcode = Object.keys(leetcode)
   .filter(key => validLeetcodeKeys.includes(key))
   .reduce((obj, key) => {
     return {
@@ -101,6 +101,31 @@ export async function PATCH(
       [key]: leetcode[key],
     };
   }, {});
+
+  // get the user data from the database
+  const user = await prismadb.user.findUnique({
+    where: {
+      email: emailId
+    },
+    include: {
+      codeforces: true,
+      codechef: true,
+      leetcode: true,
+    }
+  });
+
+  // check if body has isAdmin key
+  if('isAdmin' in body && body.isAdmin){
+    if('codechef_id' in validCodechef && (user && user.codechef && user.codechef.codechef_id !== validCodechef.codechef_id )){
+      validCodechef = {}
+    }
+    if('codeforces_id' in validCodeforces && (user && user.codeforces && user.codeforces.codeforces_id !== validCodeforces.codeforces_id )){
+      validCodeforces = {}
+    }
+    if('leetcode_id' in validLeetcode && (user && user.leetcode && user.leetcode.leetcode_id !== validLeetcode.leetcode_id )){
+      validLeetcode = {}
+    }
+  }
 
   
   try {
