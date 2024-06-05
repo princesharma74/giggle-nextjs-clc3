@@ -2,7 +2,7 @@ import prismadb from "@/lib/prismadb"
 import { randomUUID } from "crypto"
 import { User } from "@/types"
 
-const getOrCreateUser = async (first_name: string | null | undefined, emailId : string, profile: string | null | undefined) : Promise<User> => {
+const getOrCreateUser = async (first_name: string, emailId : string, profile: string | null | undefined) : Promise<User> => {
     const user = await prismadb.user.upsert({
         where: {
             email: emailId
