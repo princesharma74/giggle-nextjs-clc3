@@ -26,7 +26,7 @@ export const {handlers, signIn, signOut, auth } = NextAuth({
       return token;
     },
     async session({ session, token }) {
-      const userInfo = await getOrCreateUser(session.user.name, session.user.email, session.user.image)
+      const userInfo = await getOrCreateUser( (session.user.name ? session.user.name : "Unnamed"), session.user.email, session.user.image)
       session.user.username = userInfo.username
       session.user.image = userInfo.avatar
       session.user.first_name = userInfo.first_name
