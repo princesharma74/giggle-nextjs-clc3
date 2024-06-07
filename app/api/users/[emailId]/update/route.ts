@@ -114,16 +114,45 @@ export async function PATCH(
     }
   });
 
-  // check if body has isAdmin key
-  if('isAdmin' in body && body.isAdmin){
-    if('codechef_id' in validCodechef && (user && user.codechef && user.codechef.codechef_id !== validCodechef.codechef_id )){
+  if('codechef_id' in validCodechef && (user && user.codechef && user.codechef.codechef_id !== validCodechef.codechef_id )){
+    if('isAdmin' in body && body.isAdmin){
       validCodechef = {}
     }
-    if('codeforces_id' in validCodeforces && (user && user.codeforces && user.codeforces.codeforces_id !== validCodeforces.codeforces_id )){
+    else{
+      // delete all rating changes of the user
+      await prismadb.ratingChange.deleteMany({
+        where: {
+          user_email: emailId
+        }
+      });
+    }
+  }
+
+  if('codeforces_id' in validCodeforces && (user && user.codeforces && user.codeforces.codeforces_id !== validCodeforces.codeforces_id )){
+    if('isAdmin' in body && body.isAdmin){
       validCodeforces = {}
     }
-    if('leetcode_id' in validLeetcode && (user && user.leetcode && user.leetcode.leetcode_id !== validLeetcode.leetcode_id )){
+    else{
+      // delete all rating changes of the user
+      await prismadb.ratingChange.deleteMany({
+        where: {
+          user_email: emailId
+        }
+      });
+    }
+  }
+
+  if('leetcode_id' in validLeetcode && (user && user.leetcode && user.leetcode.leetcode_id !== validLeetcode.leetcode_id )){
+    if('isAdmin' in body && body.isAdmin){
       validLeetcode = {}
+    }
+    else{
+      // delete all rating changes of the user
+      await prismadb.ratingChange.deleteMany({
+        where: {
+          user_email: emailId
+        }
+      });
     }
   }
 
