@@ -2,6 +2,7 @@
 # client ids updated. Updated auth url
 
 .env
+script/.env
 # dependencies
 /node_modules
 /.pnp

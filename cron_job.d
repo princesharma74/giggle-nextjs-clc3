@@ -1,0 +1,1 @@
+0 */2 * * * docker compose -f /home/ubuntu/giggle-nextjs-clc3/docker-compose.yml up -d
