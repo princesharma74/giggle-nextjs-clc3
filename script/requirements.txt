@@ -1,5 +1,0 @@
-requests
-selenium
-bs4
-python-dotenv
-pytz
