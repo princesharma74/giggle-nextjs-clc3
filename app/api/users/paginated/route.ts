@@ -19,6 +19,9 @@ export async function GET(
                 codechef: true,
                 leetcode: true,
             },
+            orderBy: {
+                lastUpdatedAt : 'asc'
+            },
             skip,
             take
         });
