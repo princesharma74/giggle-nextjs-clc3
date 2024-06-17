@@ -13,6 +13,11 @@ services:
     command: npm run dev
     networks:
       - my-network
+    deploy:
+      resources:
+        limits:
+          cpus: "0.3"
+          memory: "256M"
 
 
   selenium:
@@ -23,6 +28,11 @@ services:
     restart: always
     networks:
       - my-network
+    deploy:
+      resources:
+        limits:
+          cpus: "0.3"
+          memory: "256M"
 
   my_app:
     build:
@@ -39,6 +49,11 @@ services:
     restart: always
     networks:
       - my-network
+    deploy:
+      resources:
+        limits:
+          cpus: "0.3"
+          memory: "256M"
 
 networks:
   my-network:
