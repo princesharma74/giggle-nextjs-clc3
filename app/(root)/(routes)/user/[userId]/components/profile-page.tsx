@@ -97,7 +97,7 @@ const ProfilePage : React.FC<ProfilePageProps> = ({
                 <div className="flex flex-col">
                     <div className="text-2xl font-semibold text-center">{user.first_name} {user.last_name}</div>
                     <div className="text-sm text-gray-500 text-center">@{user.username}</div>
-                    <div className="text-xs text-gray-400 text-center">{user.lastUpdatedAt && `Updated `} {user.lastUpdatedAt && (<TimeAgo data={user.lastUpdatedAt}/>)}</div>
+                    <div className="text-xs text-gray-400 text-center">{user.lastUpdatedAt && user.lastUpdatedAt >= new Date(2020, 1, 1) && `Updated `} {user.lastUpdatedAt && user.lastUpdatedAt >= new Date(2020, 1, 1) && (<TimeAgo data={user.lastUpdatedAt}/>)}</div>
                 </div>
                 <div className="flex gap-2">
                     <div>
