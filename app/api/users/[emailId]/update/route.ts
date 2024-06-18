@@ -114,7 +114,9 @@ export async function PATCH(
     }
   });
 
+  let idChanged = false;
   if('codechef_id' in validCodechef && (user && user.codechef && user.codechef.codechef_id !== validCodechef.codechef_id )){
+    idChanged = true;
     if('isAdmin' in body && body.isAdmin){
       validCodechef = {}
     }
@@ -129,6 +131,7 @@ export async function PATCH(
   }
 
   if('codeforces_id' in validCodeforces && (user && user.codeforces && user.codeforces.codeforces_id !== validCodeforces.codeforces_id )){
+    idChanged = true;
     if('isAdmin' in body && body.isAdmin){
       validCodeforces = {}
     }
@@ -143,6 +146,7 @@ export async function PATCH(
   }
 
   if('leetcode_id' in validLeetcode && (user && user.leetcode && user.leetcode.leetcode_id !== validLeetcode.leetcode_id )){
+    idChanged = true;
     if('isAdmin' in body && body.isAdmin){
       validLeetcode = {}
     }
@@ -167,6 +171,8 @@ export async function PATCH(
         leetcode: true,
       },
       data: {
+        // if the idChanged is true, then set the lastUpdatedAt field to 2000-01-01 otherwise don't do anything
+        lastUpdatedAt: idChanged ? new Date(2000, 0, 1) : user?.lastUpdatedAt,
         ...validUserData,
         codeforces: {
           upsert: {

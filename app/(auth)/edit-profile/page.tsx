@@ -127,13 +127,17 @@ export default function Dashboard() {
 
   const onSubmit = async (data: BasicUser) => {
     // reset verified status of each platform if the id is changed
+    let idChanged = false;
     if(data.codeforces && data.codeforces?.codeforces_id !== user?.codeforces_id){
+      idChanged = true;
       data.codeforces.verified = false;
     }
     if(data.codechef && data.codechef?.codechef_id !== user?.codechef_id){
+      idChanged = true;
       data.codechef.verified = false;
     }
     if(data.leetcode && data.leetcode?.leetcode_id !== user?.leetcode_id){
+      idChanged = true;
       data.leetcode.verified = false;
     }
     console.log(data)
@@ -146,12 +150,12 @@ export default function Dashboard() {
       const response = await axios.patch(`/api/users/${data.email}/update`, data, {headers});
       toast({
         title: "Updated",
-        description: "Your profile has been updated",
+        description: `Your profile has been updated ${idChanged ? "Your profile data will be scraped within 5 mins" : ""}`,
       })
       setLoading(false);
       setTimeout(() => {
         window.location.reload();
-      }, 1000)
+      }, 2000)
     }
     catch(e : any){
       // check if e has status code 409
