@@ -160,6 +160,9 @@ export async function PATCH(
     }
   }
 
+  let nwdate = new Date();
+  // change the year to 2020
+  nwdate.setFullYear(2020);
   
   try {
     // Update the user data
@@ -172,7 +175,7 @@ export async function PATCH(
       },
       data: {
         // if the idChanged is true, then set the lastUpdatedAt field to 2000-01-01 otherwise don't do anything
-        lastUpdatedAt: idChanged ? new Date(2000, 0, 1) : user?.lastUpdatedAt,
+        lastUpdatedAt: idChanged ? nwdate : user?.lastUpdatedAt,
         ...validUserData,
         codeforces: {
           upsert: {
