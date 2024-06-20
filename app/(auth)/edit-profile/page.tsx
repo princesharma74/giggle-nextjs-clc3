@@ -28,7 +28,7 @@ import Heading from "@/components/ui/heading";
 const { v4 } = require('uuid');
 
 const usernameRegex = /^[a-zA-Z0-9_.-]+$/;
-const idRegex = /^[a-zA-Z0-9_-]+$/;
+const idRegex = /^[a-zA-Z0-9_-]*$/;
 
 const basicUserSchema = z.object({
   first_name: z.string().min(2).max(50).optional(),
