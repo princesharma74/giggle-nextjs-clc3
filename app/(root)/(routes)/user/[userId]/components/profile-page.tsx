@@ -103,9 +103,10 @@ const ProfilePage : React.FC<ProfilePageProps> = ({
                     <div className="text-2xl font-semibold text-center">{user.first_name} {user.last_name}</div>
                     <div className="text-sm text-gray-500 text-center">@{user.username}</div>
                     <div className="text-xs text-gray-400 text-center">
-                                {( user.lastUpdatedAt && user.lastUpdatedAt <= date || !user.lastUpdatedAt ) ? 
+                                {( user.lastUpdatedAt && user.lastUpdatedAt <= date) ? 
                                     `Please wait scraping in progress (5 mins)` : 
-                                    `${user.lastUpdatedAt ? `Updated ${formatDistanceToNow(user.lastUpdatedAt, { addSuffix: true })}` : ''}`
+                                    ( user.lastUpdatedAt
+                                         && `${user.lastUpdatedAt ? `Updated ${formatDistanceToNow(user.lastUpdatedAt, { addSuffix: true })}` : ''}`)
                                 }
                     </div>
                 </div>
