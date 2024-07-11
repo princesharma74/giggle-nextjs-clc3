@@ -16,7 +16,7 @@ const PerformanceStats : React.FC<RatingProps> = ({
     return (
             <div className="grid grid-cols-1 gap-2">
             <div className="grid grid-cols-3 gap-1 md:gap-4 justify-center items-center w-full">
-                <Link href={`https://www.leetcode.com/${leetcode?.leetcode_id}` ?? "#"} className="border p-5 rounded-md flex flex-col items-center">
+                <Link href={`https://www.leetcode.com/${leetcode?.leetcode_id}` ?? "#"} className="h-full border p-5 rounded-md flex flex-col items-center">
                     <div className="flex gap-1 text font-medium items-center">
                         <div>
                             Leetcode
@@ -35,7 +35,7 @@ const PerformanceStats : React.FC<RatingProps> = ({
                         @{leetcode?.leetcode_id}
                     </div>
                 </Link>
-                <Link href={`https://codeforces.com/profile/${codeforces?.codeforces_id}` ?? "#"} className="border p-5 rounded-md flex flex-col items-center">
+                <Link href={`https://codeforces.com/profile/${codeforces?.codeforces_id}` ?? "#"} className="h-full border p-5 rounded-md flex flex-col items-center">
                     <div className="flex gap-1 text font-medium items-center">
                         <div>
                             Codeforces
@@ -54,7 +54,7 @@ const PerformanceStats : React.FC<RatingProps> = ({
                         @{codeforces?.codeforces_id}
                     </div>
                 </Link>
-                <Link href={`https://www.codechef.com/users/${codechef?.codechef_id}` ?? "#"} className="border p-5 rounded-md flex flex-col items-center">
+                <Link href={`https://www.codechef.com/users/${codechef?.codechef_id}` ?? "#"} className="h-full border p-5 rounded-md flex flex-col items-center">
                     <div className="flex gap-1 text font-medium items-center">
                         <div>
                             Codechef

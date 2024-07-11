@@ -65,7 +65,7 @@ const RatingChangeListView: React.FC<RatingChangeListViewProps> = ({ user_email 
         </div>
           </>
       ) : (
-        <NoResults message="No rating changes available." />
+        <NoResults message={`No rating changes available or make sure you are signed in. ${user_email}`} />
       )}
     </div>
   );
