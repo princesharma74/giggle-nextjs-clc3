@@ -21,7 +21,7 @@ The website pulls data from multiple competitive programming sites using APIs an
 - **Next.js** - Framework for server-side rendering and building the user interface.
 - **Typescript** - Superset of JavaScript for type safety and better development experience.
 - **Python** - Programming language used for backend development and data scraping.
-- **Docker** - Containerization platform to ensure consistent development and deployment environments.
+- **Docker** - Containerization of the python script which is running on an EC2 instance inside a docker container. Refer to the script repositories [here](https://github.com/princesharma74/web-scraping-script-in-python).
 - **EC2** - Amazon's cloud computing service for hosting the application.
 - **MySQL** - Relational database management system for storing user and platform data.
 - **Postman** - Tool for API testing and development.
