@@ -1,34 +1,74 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# CLC3.tech
+
+**Combining Codeforces, Leetcode & Codechef**
+
+[CLC3.tech](https://clc3.tech) is a comprehensive platform designed to integrate and display coding profiles and competitive programming data from Codeforces, Leetcode, and Codechef. This project aggregates information like ratings, submissions, and rating changes into a unified interface giving you a ability to create your friendlist of fellow competitive programmers.
+
+## Project Overview
+
+The website pulls data from multiple competitive programming sites using APIs and web scraping techniques, delivering real-time updates and valuable insights.
+
+## Key Features
+
+- **Unified Dashboard:** View coding profiles, ratings, submissions, and rating changes from Codeforces, Leetcode, and Codechef in one place.
+- **Data Updates:** Automatically refreshes information to keep users updated with the latest changes.
+- **User Profiles:** Allows users to track and compare their coding profiles across different platforms.
+- **Token-Based Verification:** Verifies coding profile IDs for secure and accurate data retrieval.
+- **Leaderboards and Social Features:** Includes leaderboards and the ability to follow friends to enhance community engagement.
+
+## Technologies Used
+
+- **Next.js** - Framework for server-side rendering and building the user interface.
+- **Typescript** - Superset of JavaScript for type safety and better development experience.
+- **Python** - Programming language used for backend development and data scraping.
+- **Docker** - Containerization platform to ensure consistent development and deployment environments.
+- **EC2** - Amazon's cloud computing service for hosting the application.
+- **MySQL** - Relational database management system for storing user and platform data.
+- **Postman** - Tool for API testing and development.
+- **Github Actions** - CI/CD pipeline for automating the build, test, and deployment processes.
 
 ## Getting Started
 
-First, run the development server:
+To set up and run this project locally, follow these steps:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. **Clone the Repository:**
+   ```bash
+   git clone https://github.com/princesharma74/giggle-nextjs-clc3.git
+   cd giggle-nextjs-clc3
+   ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. **Set Up Environment Variables:**
+   Create a `.env` file in the root directory and add the necessary environment variables for API keys, database credentials, and other configuration settings.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. **Install Dependencies:**
+   ```bash
+   npm install
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+4. **Run the Development Server:**
+   ```bash
+   npm run dev
+   ```
 
-## Learn More
+5. **Access the Application:**
+   Open your browser and go to `http://localhost:3000` to view the application.
 
-To learn more about Next.js, take a look at the following resources:
+## API and Web Scraping
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The platform uses both API calls and web scraping to gather data from Codeforces, Leetcode, and Codechef. 
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- **API Integration:** Handles authenticated requests to fetch data securely.
+- **Web Scraping:** Uses Beautiful Soup to scrape data from web pages when APIs are not available.
 
-## Deployed
+## Contributing
 
-Check out our [CLC3.tech](https://clc3.tech) OR [Alternative Link](https://giggle-nextjs-codebuddy.vercel.app/) to view the deployed website
+Contributions are welcome! Please follow these steps to contribute to the project:
+
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix.
+3. Commit your changes and push them to your fork.
+4. Open a pull request with a detailed description of your changes.
+
+## Contact
+
+For any questions or support, please contact [princesharma2899@gmail.com]
